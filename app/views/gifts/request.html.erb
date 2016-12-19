@@ -1,0 +1,25 @@
+<% provide(:title, 'Request gift') %>
+<h1>Add gift to wishlist</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@gift) do |f| %>
+      <%= f.label :title, "A brief title for your wish" %>
+      <%= f.text_field :title %>
+
+      <%= f.label :description, "A longer description of your gift with any relevant details, including URLs, ISBN, etc" %>
+      <%= f.email_field :description %>
+
+      <% :asked_for = true %>
+      <% :recipient = logged_in_user.name %>
+      <% :intend_to_give = false %>
+      <% :recieved = nil %>
+      <% :giver = nil %>
+      <% :shipped = nil %>
+      <% :shipping_details = nil %>
+
+
+      <%= f.submit "Make wish", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
