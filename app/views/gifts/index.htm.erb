@@ -1,0 +1,27 @@
+<% provide(:title, "Gifts") %>
+
+<ul>
+  <% @gifts.each do |gift| %>
+    <li>
+      <% if (gift.giver == logged_in_user) %>
+        <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
+        <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %></li>
+        <li>Description: <%= gift.description %></li>
+        <li>Wished for?: <%= gift.asked_for %></li>
+        <li>Fulfilled?: <%= gift.intend_to_give %></li>
+      <% elsif gift.recipient == logged_in_user.name %>
+        <li><%= link_to "?????????", gift_path(id: gift.id) %></li>
+        <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %></li>
+        <li>Wished for?: <%= gift.asked_for %></li>
+        <li>Shipped: <%= gift.shipped %></li>
+        <% if !!@gift.recieved == true %>
+          <li>Recieved on: <%= @gift.recieved %></li>
+        <% else %>
+          <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id)</li> %>
+        <% end %>
+      <% else %>
+
+      <% end %>
+    </li>
+  <% end %>
+</ul>

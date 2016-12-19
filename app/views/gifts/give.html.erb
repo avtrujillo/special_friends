@@ -27,6 +27,7 @@
 
 
       <%= f.submit "Give gift", class: "btn btn-primary" %>
+      <%= link_to "Cancel", friend_path(id: logged_in_user.id) %>
     <% end %>
   </div>
 </div>

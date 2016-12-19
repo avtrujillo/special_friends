@@ -1,16 +1,39 @@
-<% provide(:title, @gift.title) %>
-<h1><%= @gift.title %></h1>
-<h5>description</h5>
-<%= @gift.description %>
-<% if current_user.name == @gift.recipient %>
+<% unless ((logged_in_user.name == @gift.recipient) && ( @gift.asked_for == false)) %>
+  <% provide(:title, @gift.title) %>
+<% else %>
+  <% provide(:title, "Unopened gift")
+<% end %>
+<% if ((current_user.name == @gift.recipient) && (@gift.asked_for == true)) %>
+  <h1><%= @gift.title %></h1>
+  <h5>description</h5>
+  <%= @gift.description %>
   <br>
   <%= link_to "Edit", edit_wish_path(id: @gift.id) %>
   <br>
   <%= link_to "Delete", unwish_path(id: @gift.id) %>
-<% elsif current_user.name == @gift.giver %>
+<% elsif ((current_user.name == @gift.recipient) && (@gift.asked_for == false)) %>
+  <h1>Unopened gift</h1>
   <ul>
     <li>Recipient: <%= @gift.recipient %></li>
-    <li>Requested by reipient?: <%= @gift.asked_for %></li>
+    <li>Wished for?: <%= @gift.asked_for %></li>
+    <li>Shipped?: <%= !!@gift.shipped %></li>
+    <% if !!@gift.shipped %>
+      <li>Shipping date: <%= @gift.shipped %></li>
+      <li>Shipping details: <%= @gift.shipping_details %>
+      <% if !!@gift.recieved == true %>
+        <li>Recieved on: <%= @gift.recieved %></li>
+      <% else %>
+        <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id)</li> %>
+      <% end %>
+    <% end %>
+  </ul>
+<% elsif current_user.name == @gift.giver %>
+  <h1><%= @gift.title %></h1>
+  <h5>description</h5>
+  <%= @gift.description %>
+  <ul>
+    <li>Recipient: <%= @gift.recipient %></li>
+    <li>Wished for?: <%= @gift.asked_for %></li>
     <li>Shipped?: <%= !!@gift.shipped %></li>
     <% if !!@gift.shipped %>
       <li>Shipping date: <%= @gift.shipped %></li>

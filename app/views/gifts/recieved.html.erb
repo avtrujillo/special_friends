@@ -1,0 +1,9 @@
+<h1>When did you recieve this gift?</h1>
+<%= form_for(@gift) do |f| %>
+
+  <%= f.label(:recieved, "When did you recieve this?") %>
+  <%= f.date_field(:recieved) %>
+
+  <%= f.submit "Fulfill wish", class: "btn btn-primary" %>
+  <%= link_to "I haven't recieved this gift yet", gift_path(id: @gift.id) %>
+<% end %>

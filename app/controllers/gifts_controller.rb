@@ -6,6 +6,8 @@ class GiftsController < ApplicationController
   end
 
   def index
+    @gift = Gift.all
+    @friends = Friend.all
   end
 
   def give
@@ -91,6 +93,17 @@ class GiftsController < ApplicationController
     end
     flash[:success] = "Gift request deleted"
     redirect_to @user
+  end
+
+  def recieved
+    @gift = Gift.find(params[:id])
+    @gift.recieved = true
+    if @gift.save
+      flash[:success] = "Gift marked as recieved"
+      redirect_to @gift
+    else
+      redirect_to @gift
+    end
   end
 
   private
