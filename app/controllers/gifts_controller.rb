@@ -5,12 +5,19 @@ class GiftsController < ApplicationController
     @gift = Gift.find(params[:id])
   end
 
+  def index
+  end
+
   def give
     @gift = Gift.new
   end
 
   def request
     @gift = Gift.new
+  end
+
+  def fulfill
+    @gift = Gift.find(params[:id])
   end
 
   def create
@@ -30,14 +37,13 @@ class GiftsController < ApplicationController
 
   def edit_wish
     @gift = Gift.find(params[:id])
-
   end
 
   def update_wish
     @gift = Gift.find(params[:id])
     if @gift.update(gift_params)
       flash[:success] = "Gift updated on wishlist"
-      redirect_to(@book)
+      redirect_to(@gift)
     else
       render 'edit_wish'
     end
@@ -51,7 +57,7 @@ class GiftsController < ApplicationController
     @gift = Gift.find(params[:id])
     if @gift.update(gift_params)
       flash[:success] = "Gift updated"
-      redirect_to(@book)
+      redirect_to(@gift)
     else
       render 'edit_purchase'
     end

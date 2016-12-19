@@ -8,7 +8,7 @@
       <%= f.text_field :title %>
 
       <%= f.label :description, "A longer description of your gift with any relevant details, including URLs, ISBN, etc" %>
-      <%= f.email_field :description %>
+      <%= f.text_area :description, :cols => "10", :rows => "10" %>
 
       <% :asked_for = true %>
       <% :recipient = logged_in_user.name %>
