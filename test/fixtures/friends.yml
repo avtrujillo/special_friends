@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: MyString
+  wish_list: MyString
+  forbidden_match: MyString
+  giver: MyString
+  recipient: MyString
+
+two:
+  id: 1
+  name: MyString
+  wish_list: MyString
+  forbidden_match: MyString
+  giver: MyString
+  recipient: MyString
