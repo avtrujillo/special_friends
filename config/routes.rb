@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#home'
+  root login_path
+
   get '/help',              to: 'static_pages#help'
 
   get '/login',             to: 'sessions#new'
-  post 'login',             to: 'sessions#create'
-  delete 'login'            to: 'sessions#destroy'
+  post '/login',             to: 'sessions#create'
+  delete '/login'            to: 'sessions#destroy'
 
   get '/friend/:id'         to: 'friends#show'
+  get '/friends'             to: 'friends#index'
 
   get '/gifts'              to: 'gifts#index'
   get '/gift/:id'           to: 'gifts#show'

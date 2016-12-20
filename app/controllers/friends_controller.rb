@@ -6,6 +6,7 @@ class FriendsController < ApplicationController
 
   def index
     @friends = Friend.all
+    @gifts = Gift.all
   end
 
 end
