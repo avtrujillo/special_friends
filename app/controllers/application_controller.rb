@@ -5,4 +5,6 @@ class ApplicationController < ActionController::Base
     render html: "Hello, world!"
   end
 
+  include SessionsHelper
+
 end

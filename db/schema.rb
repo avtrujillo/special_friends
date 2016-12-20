@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20161219030006) do
     t.string   "forbidden_match"
     t.string   "giver"
     t.string   "recipient"
-    t.boolean  "millenial?"
+    t.boolean  "millenial"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
