@@ -66,7 +66,7 @@ class GiftsController < ApplicationController
   end
 
 
-  def destroy_purhase
+  def destroy_purchase
    @gift = Gift.find(params[:id])
    @user = User.find_by(name: @gift.giver)
    if (@gift.asked_for == false)
