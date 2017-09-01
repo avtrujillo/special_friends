@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = Friend.find_by(name: params[:session][:name.capitalize])
+    user = Friend.find_by(name: params[:session][:name].capitalize)
     if user
       log_in user
       redirect_to friend_path(user.id)

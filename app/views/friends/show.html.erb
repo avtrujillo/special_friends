@@ -1,14 +1,14 @@
 <% provide(:title, @friend.name) %>
 <% @friend_gifts = @gifts.select {|gift| gift.recipient == @friend.name} %>
 
-<% if logged_in_user.recipient == @friend.name %>
+<% if current_user.recipient == @friend.name %>
   <h1>This person is your special friend</h1>
 <% end %>
-<h2>Gifts that <% "#{@friend.name}" %> is recieving:</h2>
+<h2>Gifts that <% "#{@friend.name}" %> is recieving and/or has asked for:</h2>
 <ul>
   <% @friend_gifts.each do |gift| %>
     <li>
-      <% if (gift.giver == logged_in_user) %>
+      <% if (gift.giver == current_user) %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %></li>
         <li>Description: <%= gift.description %></li>
@@ -20,7 +20,7 @@
         <% else %>
           <li>Not yet recieved</li>
         <% end %>
-      <% elsif gift.recipient == logged_in_user.name %>
+      <% elsif gift.recipient == current_user.name %>
         <li><%= link_to "?????????", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient.name}).id) %></li>
         <li>Giver: <%= link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver.name}).id) %></li>
@@ -40,7 +40,7 @@
   <% end %>
 </ul>
 
-<% if @friend.id == logged_in_user.id %>
+<% if @friend.id == current_user.id %>
   <%= link_to "Add gift to wishlist", request_path %>
 <% else %>
   <%= link_to "Give this person a gift", give_path %>

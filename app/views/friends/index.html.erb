@@ -2,7 +2,7 @@
 
 <% @cousins = @friends.select { |friend| friend.millenial == true } %>
 <% @siblings = @friends.select { |friend| friend.millenial == false } %>
-<% @special_friend_id = (@friends.find {|friend| friend.name == logged_in_user.recipient}).id %>
+<% @special_friend_id = (@friends.find {|friend| friend.name == current_user.recipient}).id %>
 
 <h1>Your special friend is <%= link_to friend_path(@special_friend_id) %>.</h1>
 
