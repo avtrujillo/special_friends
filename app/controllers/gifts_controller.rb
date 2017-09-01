@@ -14,7 +14,7 @@ class GiftsController < ApplicationController
     @gift = Gift.new
   end
 
-  def request
+  def request_gift
     @gift = Gift.new
   end
 
@@ -31,7 +31,7 @@ class GiftsController < ApplicationController
       render flash[:success] = "Gift saved"
       redirect_to Friend.find_by(name: @gift.recipient)
     elsif (!@gift.save && (@gift.recipient == current_user))
-      render 'request'
+      render 'request_gift'
     else
       render 'give'
     end
@@ -109,7 +109,7 @@ class GiftsController < ApplicationController
   private
 
     def gift_params
-      params.require(:title, :description, :recipient, :asked_for, :intend_to_give) .permit(:giver :shipped, :shipping_details, :recieved)
+      params.require(:title, :description, :recipient, :asked_for, :intend_to_give) .permit(:giver, :shipped, :shipping_details, :recieved)
     end
 
 end
