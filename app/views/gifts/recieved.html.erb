@@ -1,4 +1,4 @@
-<% if @gift.recipient == logged_in_user.name %>
+<% if @gift.recipient == current_user.name %>
   <h1>When did you recieve this gift?</h1>
   <%= form_for(@gift) do |f| %>
 
@@ -10,5 +10,5 @@
   <% end %>
 <% else %>
   You shouldn't be here.
-  <%= link_to "Back to profile", logged_in_user %>
+  <%= link_to "Back to profile", current_user %>
 <% end %>

@@ -14,7 +14,7 @@
       <%= f.text_field :shipping_details %>
 
       <% :asked_for = true %>
-      <% :giver = logged_in_user.name %>
+      <% :giver = current_user.name %>
       <% :intend_to_give = true %>
       <% :recieved = nil %>
       <% :recipient = @gift.recipient %>

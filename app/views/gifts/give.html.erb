@@ -21,13 +21,13 @@
       <%= f.text_field :shipping_details %>
 
       <% :asked_for = false %>
-      <% :giver = logged_in_user.name %>
+      <% :giver = current_user.name %>
       <% :intend_to_give = true %>
       <% :recieved = nil %>
 
 
       <%= f.submit "Give gift", class: "btn btn-primary" %>
-      <%= link_to "Cancel", friend_path(id: logged_in_user.id) %>
+      <%= link_to "Cancel", friend_path(id: current_user.id) %>
     <% end %>
   </div>
 </div>

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   patch '/fulfill/:id',       to: 'gifts#update_purchase'
   post '/give',               to: 'gifts#create'
   post '/request_gift',       to: 'gifts#create'
+  post './gifts',             to: 'gifts#create'
   get '/gift/:id',            to: 'gifts#show'
   get '/edit_wish/:id',       to: 'gifts#edit_wish'
   patch '/edit_wish/:id',     to: 'gifts#update_wish'

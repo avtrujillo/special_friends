@@ -3,7 +3,7 @@
 <ul>
   <% @gifts.each do |gift| %>
     <li>
-      <% if (gift.giver == logged_in_user) %>
+      <% if (gift.giver == current_user) %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %></li>
         <li>Description: <%= gift.description %></li>
@@ -15,7 +15,7 @@
         <% else %>
           <li>Not yet recieved</li>
         <% end %>
-      <% elsif gift.recipient == logged_in_user.name %>
+      <% elsif gift.recipient == current_user.name %>
         <li><%= link_to "?????????", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient.name}).id) %></li>
         <li>Giver: <%= link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver.name}).id) %></li>

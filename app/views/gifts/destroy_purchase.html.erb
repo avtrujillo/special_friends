@@ -1,6 +1,6 @@
 <% provide(:title, 'Delete gift') %>
 
-<% if @gift.giver == logged_in_user.name %>
+<% if @gift.giver == current_user.name %>
   Are you sure you want to delete this item? This will indicate to others that it has not been purchased.
   <br>
   <%= link_to "Yes", gifts_destroy_purhase_path(id: @gift.id), method: "delete" %>
@@ -8,5 +8,5 @@
   <%= link_to "No", @gift %>
 <% else %>
   You shouldn't be here.
-  <%= link_to "Back to profile", logged_in_user %>
+  <%= link_to "Back to profile", current_user %>
 <% end %>

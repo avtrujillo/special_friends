@@ -1,4 +1,4 @@
-<% unless ((logged_in_user.name == @gift.recipient) && ( @gift.asked_for == false)) %>
+<% unless ((current_user.name == @gift.recipient) && ( @gift.asked_for == false)) %>
   <% provide(:title, @gift.title) %>
 <% else %>
   <% provide(:title, "Unopened gift")

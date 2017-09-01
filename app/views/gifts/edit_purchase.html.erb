@@ -1,6 +1,6 @@
 <% provide(:title, 'Edit gift') %>
 
-<% if logged_in_user.name == gift.giver %>
+<% if current_user.name == gift.giver %>
   <h1>Edit wish</h1>
 
   <div class="row">
@@ -22,16 +22,16 @@
         <%= f.text_field :shipping_details %>
 
         <% :asked_for = false %>
-        <% :giver = logged_in_user.name %>
+        <% :giver = current_user.name %>
         <% :intend_to_give = true %>
         <% :recieved = nil %>
 
         <%= f.submit "Update gift", class: "btn btn-primary" %>
-        <%= link_to "Cancel", friend_path(id: logged_in_user.id) %>
+        <%= link_to "Cancel", friend_path(id: current_user.id) %>
       <% end %>
     </div>
   </div>
 <% else %>
   You shouldn't be here.
-  <%= link_to "Back to profile", logged_in_user %>
+  <%= link_to "Back to profile", current_user %>
 <% end %>

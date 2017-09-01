@@ -1,5 +1,5 @@
 class GiftsController < ApplicationController
-  before_action :logged_in_user
+  before_action :current_user
 
   def show
     @gift = Gift.find(params[:id])
@@ -109,7 +109,7 @@ class GiftsController < ApplicationController
   private
 
     def gift_params
-      params.require(:title, :description, :recipient, :asked_for, :intend_to_give) .permit(:giver, :shipped, :shipping_details, :recieved)
+      params.require(:title, :description, :recipient, :asked_for, :intend_to_give).permit(:giver, :shipped, :shipping_details, :recieved)
     end
 
 end
