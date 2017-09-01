@@ -29,7 +29,7 @@
         <% if !!@gift.recieved == true %>
           <li>Recieved on: <%= @gift.recieved %></li>
         <% else %>
-          <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id)</li> %>
+          <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id) %></li>
         <% end %>
       <% else %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
