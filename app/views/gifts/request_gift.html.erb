@@ -10,13 +10,13 @@
       <%= f.label :description, "A longer description of your wish with any relevant details, including URLs, ISBN, etc" %>
       <%= f.text_area :description, :cols => "10", :rows => "10" %>
 
-      <% f.hidden_field :asked_for, value: true %>
-      <% f.hidden_field :recipient, value: current_user.name %>
-      <% f.hidden_field :intend_to_give, value: false %>
-      <% f.hidden_field :recieved, value: nil %>
-      <% f.hidden_field :giver, value: nil %>
-      <% f.hidden_field :shipped, value: nil %>
-      <% f.hidden_field :shipping_details, value: nil %>
+      <%= f.hidden_field :asked_for, value: true %>
+      <%= f.hidden_field :recipient, value: current_user.name %>
+      <%= f.hidden_field :intend_to_give, value: false %>
+      <%= f.hidden_field :recieved, value: nil %>
+      <%= f.hidden_field :giver, value: nil %>
+      <%= f.hidden_field :shipped, value: nil %>
+      <%= f.hidden_field :shipping_details, value: nil %>
 
 
       <%= f.submit "Make wish", class: "btn btn-primary" %>

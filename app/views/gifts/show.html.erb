@@ -1,16 +1,16 @@
 <% unless ((current_user.name == @gift.recipient) && ( @gift.asked_for == false)) %>
   <% provide(:title, @gift.title) %>
 <% else %>
-  <% provide(:title, "Unopened gift")
+  <% provide(:title, "Unopened gift") %>
 <% end %>
 <% if ((current_user.name == @gift.recipient) && (@gift.asked_for == true)) %>
   <h1><%= @gift.title %></h1>
   <h5>description</h5>
   <%= @gift.description %>
   <br>
-  <%= link_to "Edit", edit_wish_path(id: @gift.id) %>
+  <%= link_to "Edit", "/edit_wish/#{@gift.id}" %>
   <br>
-  <%= link_to "Delete", unwish_path(id: @gift.id) %>
+  <%= link_to "Delete", "/unwish/#{@gift.id}" %>
 <% elsif ((current_user.name == @gift.recipient) && (@gift.asked_for == false)) %>
   <h1>Unopened gift</h1>
   <ul>
@@ -23,7 +23,7 @@
       <% if !!@gift.recieved == true %>
         <li>Recieved on: <%= @gift.recieved %></li>
       <% else %>
-        <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id)</li> %>
+        <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id) %></li>
       <% end %>
     <% end %>
   </ul>
@@ -54,6 +54,6 @@
     <em>Someone else is already getting this gift for <% @gift.recipient %>.</em>
   <% else %>
     <em>No one else has gotten this gift for <% @gift.recipient %>.</em>
-    <%= link_to "Give this gift.", fulfill_path(id: @gift.id)
+    <%= link_to "Give this gift.", fulfill_path(id: @gift.id) %>
   <% end %>
 <% end %>

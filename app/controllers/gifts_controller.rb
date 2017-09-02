@@ -15,6 +15,7 @@ class GiftsController < ApplicationController
   end
 
   def request_gift
+    @friends = Friend.all
     @gift = Gift.new
   end
 
@@ -28,7 +29,7 @@ class GiftsController < ApplicationController
       flash[:success] = "Gift added to wishlist"
       redirect_to current_user
     elsif (@gift.save && (@gift.recipient != current_user))
-      render flash[:success] = "Gift saved"
+      flash[:success] = 'Gift saved'
       redirect_to Friend.find_by(name: @gift.recipient)
     elsif (!@gift.save && (@gift.recipient == current_user))
       render 'request_gift'
@@ -68,7 +69,7 @@ class GiftsController < ApplicationController
 
   def destroy_purchase
    @gift = Gift.find(params[:id])
-   @user = User.find_by(name: @gift.giver)
+   @user = Friend.find_by(name: @gift.giver)
    if (@gift.asked_for == false)
      @gift.destroy
    else
@@ -83,7 +84,7 @@ class GiftsController < ApplicationController
 
   def destroy_wish
     @gift = Gift.find(params[:id])
-    @user = User.find_by(name: @gift.recipient)
+    @user = Friend.find_by(name: @gift.recipient)
     if (@gift.intend_to_give == false)
       @gift.destroy
     else
@@ -109,7 +110,7 @@ class GiftsController < ApplicationController
   private
 
     def gift_params
-      params.require(:title, :description, :recipient, :asked_for, :intend_to_give).permit(:giver, :shipped, :shipping_details, :recieved)
+      params.require(:gift).permit(:title, :description, :recipient, :asked_for, :intend_to_give, :giver, :shipped, :shipping_details, :recieved)
     end
 
 end

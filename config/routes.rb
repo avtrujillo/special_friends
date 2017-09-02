@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   patch '/edit_wish/:id',     to: 'gifts#update_wish'
   get '/edit_purchase/:id',   to: 'gifts#edit_purchase'
   patch '/edit_purchase/:id', to: 'gifts#update_purchase'
+  get   '/unwish/:id',        to: 'gifts#destroy_wish'
   delete '/unwish/:id',       to: 'gifts#destroy_wish'
   delete '/ungift/:id',       to: 'gifts#destroy_purhase'
 

@@ -2,6 +2,7 @@ class FriendsController < ApplicationController
 
   def show
     @friend = Friend.find(params[:id])
+    @friends = Friend.all
     @gifts = Gift.all
   end
 
