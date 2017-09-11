@@ -12,6 +12,7 @@ class GiftsController < ApplicationController
   def index
     all_instances
     if params[:friend] && params[:friend][:name] == @current_user[:name]
+      @friend = @current_user
       @receiving_gifts = Gift.where(recipient: @current_user)
       @giving_gifts = Gift.where(giver: @current_user)
       render 'user_gifts' # to do: make this
@@ -82,7 +83,7 @@ class GiftsController < ApplicationController
   end
 
   def destroy
-   @gift = Gift.find(params[[:gift]:id])
+   @gift = Gift.find(params[:gift][:id])
    if @gift.giver == @current_user
      if @gift.destroy
        flash[:success] = "Gift deleted"

@@ -12,17 +12,23 @@
 <ul>
   <% unless gift.recipient == current_user && !gift.shipped %>
     <li><%= link_to title, gift %></li>
-    <li>Recipient: <%= link_to gift.recipient_name, gift.recipient %></li>
+    <li>
+      <% if gift.giver == gift.recipient.special_friend_giver %> /* to do: add this to the model */
+        <% "#{gift.giver.name.capitalize}'s special friend" %>
+      <% else %>
+        Recipient: <%= link_to gift.recipient.name, gift.recipient %>
+      <% end %>
+    </li>
     <li>Description: <%= description %></li>
     <% if fulfillment_of %>
       <li>Fulfillment of: <%= fulfillment_of, gift.wish  %></li> /* to do: makes sure this works */
     <% end %>
     <li>Shipped: <%= !!gift.shipped %></li>
     <li>Recieved: <%= @gift.recieved %>
-    <%= link_to_if gift.recipient == current_user && !gift.recieved,
-    "Give an update about whether this gift has arrived", gift_edit_path(gift)  %>
-    /* to do: make sure this link works properly for recipients */
-    </li>
+      <% if gift.recipient == current_user.name %> <%# to do: reformat this */ %>
+        <%= link_to "Give an update about whether this gift has arrived",
+        edit_gift_path(gift.id) %>
+      <% end %>
     <% end %>
   <% end %>
 </ul>

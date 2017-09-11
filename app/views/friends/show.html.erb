@@ -29,7 +29,12 @@
         <% if @gift && @gift.recieved %>
           <li>Recieved on: <%= @gift.recieved %></li>
         <% else %>
-          <li><%= "fill in later" %></li># link_to "Let people know you've recieved this!", recieved_path(id: gift.id) %></li>
+          <li>
+            <% if gift.recipient == current_user.name %> <%# to do: reformat this */ %>
+              <%= link_to "Give an update about whether this gift has arrived",
+              edit_gift_path(gift.id) %>
+            <% end %>
+          </li>
         <% end %>
       <% else %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
@@ -41,7 +46,7 @@
 </ul>
 
 <% if @friend.id == current_user.id %>
-  <%= link_to "Add gift to wishlist", request_gift_path %>
+  <%= link_to "Add gift to wishlist", new_wish_path %>
 <% else %>
-  <%= link_to "Give this person a gift", give_path %>
+  <%= link_to "Give this person a gift", new_gift_path %>
 <% end %>
