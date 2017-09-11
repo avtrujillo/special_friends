@@ -22,10 +22,10 @@ class GiftsController < ApplicationController
       @user_gifts = Gift.where(recipient: @current_user, giver: @friend)
       render 'friend_gifts' # to do: make this
     else
-      @receiving_gifts = Friend.each_with_object(Hash.new[]) do |friend, ghash|
+      @friends_receiving_gifts = Friend.each_with_object(Hash.new([])) do |friend, ghash|
         ghash[friend[:id]] == Gift.where(recipient: friend[:id])
       end
-      @giving_gifts = Friend.each_with_object(Hash.new[]) do |friend, ghash|
+      @friends_giving_gifts = Friend.each_with_object(Hash.new([])) do |friend, ghash|
         ghash[friend[:id]] == Gift.where(giver: friend[:id])
       end
       render 'index' # to do: make this

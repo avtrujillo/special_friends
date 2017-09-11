@@ -1,0 +1,28 @@
+<% raise unless current_user && gift %>
+<% if gift.recipient == current_user && gift.shipped %>
+  <% gift_title = '?????????' %>
+  <% fulfillment_of = '?????????' %>
+  <% description = '?????????' %>
+<% else %>
+  <% gift_title = gift.title %>
+  <% fulfillment_of = gift.wish ? gift.wish_name : 'none' %>
+  <% description = gift.description %>
+<% end %>
+
+<ul>
+  <% unless gift.recipient == current_user && !gift.shipped %>
+    <li><%= link_to title, gift %></li>
+    <li>Recipient: <%= link_to gift.recipient_name, gift.recipient %></li>
+    <li>Description: <%= description %></li>
+    <% if fulfillment_of %>
+      <li>Fulfillment of: <%= fulfillment_of, gift.wish  %></li> /* to do: makes sure this works */
+    <% end %>
+    <li>Shipped: <%= !!gift.shipped %></li>
+    <li>Recieved: <%= @gift.recieved %>
+    <%= link_to_if gift.recipient == current_user && !gift.recieved,
+    "Give an update about whether this gift has arrived", gift_edit_path(gift)  %>
+    /* to do: make sure this link works properly for recipients */
+    </li>
+    <% end %>
+  <% end %>
+</ul>
