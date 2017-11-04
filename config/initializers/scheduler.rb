@@ -22,10 +22,10 @@ def generate_matches
 end
 
 def generate_match_hash
-  Generation.all.each do |g|
-    recipients = Generation.friends
+  Generation.all.map do |g|
+    recipients = g.friends
     givers = recipients.dup
-    return recipients.each_with_object(Hash.new) do |r, h|
+    recipients.each_with_object(Hash.new) do |r, h|
       h[r] = givers.delete(givers.sample)
     end
   end
