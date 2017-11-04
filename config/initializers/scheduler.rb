@@ -37,7 +37,7 @@ def generate_valid_match_hash(matches_hash)
     if match_hash.none? {|r, g| r.forbidden_match?(g)}
       return match_hash
     else
-      retry
+      redo
     end
   end
 end

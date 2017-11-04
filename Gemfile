@@ -12,6 +12,7 @@ gem 'turbolinks',      '5.0.1'
 gem 'jbuilder',        '2.7.0'
 gem 'bcrypt',          '3.1.11'
 gem 'rufus-scheduler', '3.4.2'
+gem 'mailgun-ruby',    '1.1.8'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

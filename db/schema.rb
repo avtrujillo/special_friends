@@ -10,71 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219030006) do
+ActiveRecord::Schema.define(version: 20171101232441) do
 
   create_table "forbidden_matches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "friend_1_id"
+    t.integer "friend_2_id"
   end
 
-  create_table "friendlists", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "friend_matches", force: :cascade do |t|
+    t.integer "giver_id"
+    t.integer "recipient_id"
+    t.integer "year"
   end
 
   create_table "friends", force: :cascade do |t|
-    t.string   "name"
-    t.string   "wish_list"
-    t.string   "forbidden_match"
-    t.string   "giver"
-    t.string   "recipient"
-    t.boolean  "millenial"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "generation_id"
+    t.integer "forbidden_match_id"
   end
 
   create_table "gifts", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.boolean  "asked_for"
-    t.string   "giver"
-    t.string   "recipient"
-    t.string   "intend_to_give"
-    t.date     "shipped"
-    t.string   "shipping_details"
-    t.date     "recieved"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  create_table "givers", force: :cascade do |t|
+    t.string "title"
+    t.string "giver"
+    t.string "recipient"
+    t.date "shipped"
+    t.date "recieved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "lists", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "matches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "matchlists", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "recipients", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "years", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "description"
+    t.integer "wish_id"
+    t.integer "giver_id"
+    t.integer "recipient_id"
+    t.boolean "intend_to_give"
+    t.text "shipping_details"
+    t.integer "year"
   end
 
 end
