@@ -4,7 +4,7 @@
 <% if current_user.recipient == @friend.name %>
   <h1>This person is your special friend</h1>
 <% end %>
-<h2>Gifts that <% "#{@friend.name}" %> is recieving and/or has asked for:</h2>
+<h2>Gifts that <%= "#{@friend.name}" %> is recieving and/or has asked for:</h2>
 <ul>
   <% @friend_gifts.each do |gift| %>
     <li>
