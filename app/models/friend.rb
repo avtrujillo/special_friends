@@ -11,7 +11,9 @@ class Friend < ApplicationRecord
 
   belongs_to  :generation
 
-  has_many  :forbidden_matches
+  def forbidden_matches
+    ForbiddenMatch.where("friend_1_id = ? OR friend_2_id = ?", self.id, self.id)
+  end
 
   def recipient
     recipients.find {|r| r.year == christmas_year}

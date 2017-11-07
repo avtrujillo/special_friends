@@ -5,7 +5,6 @@ class RefactorFriends < ActiveRecord::Migration[5.1]
       t.remove  :millenial
       t.remove  :wish_list
       t.remove  :forbidden_match
-      t.integer :forbidden_match_id
       t.remove  :giver
       t.remove  :recipient
     end
