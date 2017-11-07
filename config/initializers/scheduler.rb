@@ -1,14 +1,7 @@
 require 'rufus-scheduler'
+include FriendsHelper
 
 scheduler = Rufus::Scheduler.new
-
-def christmas_year
-  if Date.new.month < 6
-    return Date.year - 1
-  else
-    return Date.year
-  end
-end
 
 def generate_matches
   mh = generate_match_hash

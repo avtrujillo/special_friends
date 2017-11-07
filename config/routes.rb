@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   get '/help',                to: 'static_pages#help'
+  get '/home',                to: 'static_pages#home'
 
   concern :has_gifts do
     resources :gifts do

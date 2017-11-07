@@ -1,2 +1,0 @@
-class Matchlist < ApplicationRecord
-end

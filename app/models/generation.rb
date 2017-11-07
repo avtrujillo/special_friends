@@ -1,4 +1,4 @@
 class Generation < ApplicationRecord
-	has_many	:friends
-	has_many	:matches, through: :friends, source: :giver_matches
+	has_many	:friends, optional: true
+	has_many	:friend_matches, through: :friends, source: :giver_matches, optional: true
 end
