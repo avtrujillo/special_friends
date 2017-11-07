@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :has_wishes { resources :wishes { concerns :has_gifts } }
+  concern :has_wishes do
+    resources :wishes do
+      concerns :has_gifts
+    end
+  end
 
   concerns :has_gifts, :has_wishes
 
