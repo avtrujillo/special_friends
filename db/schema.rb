@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104184042) do
+ActiveRecord::Schema.define(version: 20171108083851) do
 
   create_table "forbidden_matches", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 20171104184042) do
     t.boolean "intend_to_give"
     t.text "shipping_details"
     t.integer "year"
+  end
+
+  create_table "wishes", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "friend_id"
+    t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -7,6 +7,7 @@ class Friend < ApplicationRecord
 
   has_many  :recieved_gifts, foreign_key: :recipient_id, class_name: 'Gift'
   has_many  :given_gifts, foreign_key: :giver_id, class_name: 'Gift'
+  has_many  :wishes
 
   belongs_to  :generation
 
