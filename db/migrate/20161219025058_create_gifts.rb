@@ -2,15 +2,14 @@ class CreateGifts < ActiveRecord::Migration[5.0]
   def change
     create_table  :gifts do |t|
       t.string    :title
-      t.string    :description
-      t.boolean   :asked_for
-      t.string    :giver
-      t.string    :recipient
-      t.string    :intend_to_give
+      t.text      :description
+      t.integer   :wish_id
+      t.integer   :giver_id
+      t.integer   :recipient_id
       t.date      :shipped
-      t.string    :shipping_details
+      t.text      :shipping_details
       t.date      :recieved
-
+      t.integer   :year
       t.timestamps
     end
   end
