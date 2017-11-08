@@ -18,9 +18,7 @@ Rails.application.routes.draw do
   end
 
   concern :has_wishes do
-    resources :wishes do
-      concerns :has_gifts
-    end
+    resources :wishes
   end
 
   concerns :has_gifts, :has_wishes
