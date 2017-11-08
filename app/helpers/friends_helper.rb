@@ -1,9 +1,9 @@
 module FriendsHelper
   def christmas_year
-    if Date.new.month < 6
-      return Date.year - 1
+    if Time.now.month < 6
+      return Time.now.year - 1
     else
-      return Date.year
+      return Time.now.year
     end
   end
 end
