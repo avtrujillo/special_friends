@@ -1,17 +1,17 @@
 <% raise unless current_user && gift %>
-<% if gift.recipient == current_user && gift.shipped %>
+<% if gift.recipient == current_user %>
   <% gift_title = '?????????' %>
   <% fulfillment_of = '?????????' %>
   <% description = '?????????' %>
 <% else %>
   <% gift_title = gift.title %>
-  <% fulfillment_of = gift.wish ? gift.wish_name : 'none' %>
+  <% fulfillment_of = gift.wish ? gift.wish.name : 'none' %>
   <% description = gift.description %>
 <% end %>
 
 <ul>
-  <% unless gift.recipient == current_user && !gift.shipped %>
-    <li><%= link_to title, gift %></li>
+  <% unless gift.recipient == current_user%>
+    <li><%= link_to gift_title, gift %></li>
     <li>
       <% if gift.giver == gift.recipient.special_friend_giver %> /* to do: add this to the model */
         <% "#{gift.giver.name.capitalize}'s special friend" %>

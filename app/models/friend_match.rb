@@ -1,7 +1,11 @@
 class FriendMatch < ApplicationRecord
   belongs_to :giver, foreign_key: "giver_id", class_name: "Friend"
   belongs_to :recipient, foreign_key: "recipient_id", class_name: "Friend"
-  validates_uniqueness_of :giver_id, scope: [:recipient_id, :year]
+  validates_uniqueness_of :giver_id,  scope: :year
+  validates_uniqueness_of :recipient_id, scope: :year
+  validates_associated  :giver
+  validates_associated  :recipient
+  has_many  :intend_to_fulfill, foreign_key: :intend_to_fulfill_id, class_name: 'Wish'
 
   def generation
     giver.generation
