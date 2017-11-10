@@ -31,3 +31,6 @@ ForbiddenMatch.create(friend_1: katie, friend_2: mike)
 ForbiddenMatch.create(friend_1: adam, friend_2: santosh)
 ForbiddenMatch.create(friend_1: greg, friend_2: debbie)
 ForbiddenMatch.create(friend_1: kim, friend_2: mark)
+
+[alex, olivia, jesse, bekah, lindsay, katie, mike, adam, santosh, greg, debbie,
+mark, kim].each { |f| ForbiddenMatch.create(friend_1: f, friend_2: f) }

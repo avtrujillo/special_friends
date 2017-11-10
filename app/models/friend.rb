@@ -31,7 +31,14 @@ class Friend < ApplicationRecord
     giver_match.recipient
   end
 
+  def gifts_from(other_friend)
+    Gift.where(recipient: self, giver: other_friend)
+  end
+
+
+
   def forbidden_match?(other_friend)
+    return true if other_friend == self
     ForbiddenMatch.where(
       friend_1: [self, other_friend], friend_2: [self, other_friend]
     ).exists?

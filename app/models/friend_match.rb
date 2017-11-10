@@ -1,6 +1,7 @@
 class FriendMatch < ApplicationRecord
   belongs_to :giver, foreign_key: "giver_id", class_name: "Friend"
   belongs_to :recipient, foreign_key: "recipient_id", class_name: "Friend"
+  validates_uniqueness_of :giver_id, scope: [:recipient_id, :year]
 
   def generation
     giver.generation
@@ -10,10 +11,10 @@ class FriendMatch < ApplicationRecord
     Gift.where giver: self.giver, recipient: self.recipient, year: self.year
   end
 
-  def self.generate_matches
+  def self.generate_friend_matches
     mh = generate_valid_matches_hash
     mh.each_pair do |recipient, giver|
-      FriendMatch.create(
+      FriendMatch.create!(
         giver_id: giver.id,
         recipient_id: recipient.id,
         year: Time.christmas_year
