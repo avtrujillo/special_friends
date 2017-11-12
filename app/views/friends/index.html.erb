@@ -1,37 +1,12 @@
 <% provide(:title, "Friends") %>
 
-<% @cousins = @friends.select { |friend| friend.millenial == true } %>
-<% @siblings = @friends.select { |friend| friend.millenial == false } %>
-<% @special_friend_id = (@friends.find {|friend| friend.name == current_user.recipient}).id %>
-
-<h1>Your special friend is <%= link_to friend_path(@special_friend_id) %>.</h1>
-
-<h2>Siblings</h2>
-
-<ul>
-  <% @siblings.each do |friend| %>
-    <li>
-      <% if (friend.id == current_user.id) %>
-        <%= link_to "#{friend.name}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %>
-      <% elsif current_user.recipient == friend.name %>
-      <% else %>
-        <%= link_to "#{friend.name}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<h2>Cousins</h2>
-
-<ul>
-  <% @cousins.each do |friend| %>
-    <li>
-      <% if (friend.id == current_user.id) %>
-        <%= link_to "#{friend.name}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %>
-      <% elsif current_user.recipient == friend.name %>
-      <% else %>
-        <%= link_to "#{friend.name}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<% Generation.all.each do |gen| %>
+  <h1><%= gen.name %></h1>
+  <ul>
+    <% gen.friends.each do |friend| %>
+      <li>
+        <%= link_to friend.name, friend_path(friend) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

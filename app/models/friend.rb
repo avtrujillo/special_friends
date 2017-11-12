@@ -8,6 +8,7 @@ class Friend < ApplicationRecord
   has_many  :recieved_gifts, foreign_key: :recipient_id, class_name: 'Gift'
   has_many  :given_gifts, foreign_key: :giver_id, class_name: 'Gift'
   has_many  :wishes
+  has_many  :intend_to_fulfill, foreign_key: :intend_to_fulfill_id, class_name: 'Wish'
 
   belongs_to  :generation
 
@@ -24,11 +25,11 @@ class Friend < ApplicationRecord
   end
 
   def giver # the person that this friend is giving too this year
-    recipient_match.giver
+    recipient_match.giver if giver_match
   end
 
   def recipient # the person that this friend is recieving from this year
-    giver_match.recipient
+    giver_match.recipient if giver_match
   end
 
   def gifts_from(other_friend)

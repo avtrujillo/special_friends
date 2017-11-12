@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, only: [:new, :create, :destroy]
 
   def new
+    if current_user
+      redirect_to friends_path
+    end
   end
 
   def create

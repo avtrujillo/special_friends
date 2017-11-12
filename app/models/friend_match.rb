@@ -5,7 +5,6 @@ class FriendMatch < ApplicationRecord
   validates_uniqueness_of :recipient_id, scope: :year
   validates_associated  :giver
   validates_associated  :recipient
-  has_many  :intend_to_fulfill, foreign_key: :intend_to_fulfill_id, class_name: 'Wish'
 
   def generation
     giver.generation

@@ -9,6 +9,24 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <header class = "navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+          <nav>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to "All Friends", friends_path %></li>
+              <li><%= link_to "My Generation", generation_path %></li>
+              <li><%= link_to "My Giver", giver_path %></li>
+              <li><%= link_to "My Recipient", recipient_path %></li>
+              <li><%= link_to "Me", current_user %></li>
+              <li><%= link_to "My Wish List", friend_wishes_path(current_user.wishes) %></li>
+              <li><%= link_to "Gift's I'm Giving", friend_gifts_path(current_user.given_gifts) %></li>
+              <li><%= link_to "Logout", logout_path, method: :delete %></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+    <% end %>
     <div class="container">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>

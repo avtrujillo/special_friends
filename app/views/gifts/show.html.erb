@@ -1,9 +1,8 @@
-<% unless ((current_user.name == @gift.recipient) && ( @gift.asked_for == false)) %>
-  <% provide(:title, @gift.title) %>
+<% provide(:title, @gift.title) %>
 <% else %>
   <% provide(:title, "Unopened gift") %>
 <% end %>
-<% if ((current_user.name == @gift.recipient) && (@gift.asked_for == true)) %>
+<% if ((current_user == @gift.recipient) %>
   <h1><%= @gift.title %></h1>
   <h5>description</h5>
   <%= @gift.description %>

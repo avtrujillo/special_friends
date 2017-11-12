@@ -11,4 +11,24 @@ class FriendsController < ApplicationController
     @gifts = Gift.all
   end
 
+  def recipient
+    redirect_to current_user.recipient
+  end
+
+  def giver
+    @friend = current_user.giver
+    @friends = Friend.all
+    @gifts = Gift.all
+    render 'giver.html.erb'
+  end
+
+  def user
+    redirect_to current_user
+  end
+
+  def generation
+    @generation = current_user.generation
+    render 'generation.html.erb'
+  end
+
 end
