@@ -2,7 +2,7 @@ class GiftsController < ApplicationController
   before_action :current_user # to do: should all_instances go here?
 
   def show
-    @gift = Gift.find(params[:gift][:id])
+    @gift = Gift.find(params[:id])
     all_instances
     if @gift.recipient == @current_user # to do: make sure this works
       render 'user_gift' # to do: make this
@@ -23,10 +23,10 @@ class GiftsController < ApplicationController
       @user_gifts = Gift.where(recipient: @current_user, giver: @friend)
       render 'friend_gifts' # to do: make this
     else
-      @friends_receiving_gifts = Friend.each_with_object(Hash.new([])) do |friend, ghash|
+      @friends_receiving_gifts = Friend.all.each_with_object(Hash.new([])) do |friend, ghash|
         ghash[friend[:id]] == Gift.where(recipient: friend[:id])
       end
-      @friends_giving_gifts = Friend.each_with_object(Hash.new([])) do |friend, ghash|
+      @friends_giving_gifts = Friend.all.each_with_object(Hash.new([])) do |friend, ghash|
         ghash[friend[:id]] == Gift.where(giver: friend[:id])
       end
       render 'index' # to do: make this
