@@ -1,5 +1,8 @@
-<% provide(:title, @gift.title) %>
-<% if (current_user == @gift.giver) %>
+<% provide(:title, @gift.title) unless current_user == @gift.recipient %>
+
+<% if current_user == @gift.recipient %>
+  <h1>Stop trying to peek at your presents</h1>
+<% else %>
   <h1><%= @gift.title %></h1>
   <h4>Description</h4>
   <%= @gift.description %>
@@ -9,22 +12,11 @@
     <h4>Fulfillment of wish:</h4>
     <%= link_to gift.wish.title, wish_path(@gift.wish) %>
   <% end %>
-  <br>
-  <%= (@gift.recieved?) ? "Received #{@gift.recieved}" : 'Not yet received' %>
+<% end %>
+
+<% if (current_user == @gift.giver) %>
   <br>
   <%= link_to "Edit", edit_gift_path(@gift) %>
   <br>
   <%= link_to "Delete", gift_path(@gift), method: :delete %>
-<% elsif current_user == @gift.recipient %>
-
-<% else %>
-  <h1><%= @gift.title %></h1>
-  <h4>Description</h4>
-  <%= @gift.description %>
-  <h4>Recipient</h4>
-  <%= @gift.recipient.name %>
-  <% if @gift.wish %>
-    <h5>Fulfillment of wish:</h5>
-    <%= link_to gift.wish.title, wish_path(@gift.wish) %>
-  <% end %>
 <% end %>

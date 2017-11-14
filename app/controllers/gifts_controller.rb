@@ -2,10 +2,13 @@ class GiftsController < ApplicationController
   before_action :current_user # to do: should all_instances go here?
 
   def show
-    @gift = Gift.find(params[:id])
     all_instances
-    if @gift.recipient == @current_user # to do: make sure this works
-      render 'user_gift' # to do: make this
+    @gift = Gift.find_by(id: params[:id])
+    if @gift.nil?
+      render status: 404, file: "#{Rails.root}/public/404.html" and return
+    elsif @gift.recipient == @current_user # to do: make sure this works
+      render status: 403, file: "#{Rails.root}/public/403.html" and return
+      # to do: maybe have something other than an error here?
     end
   end
 
@@ -83,8 +86,13 @@ class GiftsController < ApplicationController
   end
 
   def destroy
-   @gift = Gift.find(params[:gift][:id])
-   if @gift.giver == @current_user
+    begin
+      @gift = Gift.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render status: 404, file: File.join(Rails.root, 'public', '404.html')
+      return
+    end
+    if @gift.giver == @current_user
      if @gift.destroy
        flash[:success] = "Gift deleted"
      else
