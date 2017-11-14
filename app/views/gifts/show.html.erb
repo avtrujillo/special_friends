@@ -18,5 +18,6 @@
   <br>
   <%= link_to "Edit", edit_gift_path(@gift) %>
   <br>
-  <%= link_to "Delete", gift_path(@gift), method: :delete %>
+  <%= link_to "Delete", gift_path(@gift), method: :delete, data: { confirm:
+    'Are you sure you want to delete this?' } %>
 <% end %>

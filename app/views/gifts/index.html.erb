@@ -1,4 +1,4 @@
 <% provide(:title, "Gifts") %>
 
 <%# to do: improve this %>
-<%= render @gifts %>
+<%= render partial: 'gifts_summary', locals: {gifts: @gifts} %>

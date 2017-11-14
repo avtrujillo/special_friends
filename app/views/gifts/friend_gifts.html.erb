@@ -1,0 +1,14 @@
+<% provide(:title, "#{@friend.name}'s Gifts") %>
+
+<%# to do: improve this %>
+<h1>Gifts that <%= @friend.name %> is giving</h1>
+<%= render partial: 'gifts_summary', locals: {gifts: @giving_gifts} %>
+
+<br>
+
+<h1>Gifts that <%= @friend.name %> is receiving</h1>
+<%= render partial: 'gifts_summary', locals: {gifts: @receiving_gifts} %>
+
+<br>
+
+<%= link_to "Give #{@friend.name} a gift" new_friend_gift_path(@friend) %>

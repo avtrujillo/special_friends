@@ -27,8 +27,8 @@ class FriendsController < ApplicationController
   end
 
   def generation
-    @generation = current_user.generation
-    render 'generation.html.erb'
+    @generation = Generation.find_by(id: params[:id]) || current_user.generation
+    render 'generations/generation.html.erb'
   end
 
 end

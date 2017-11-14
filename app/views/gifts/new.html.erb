@@ -1,0 +1,27 @@
+<% provide(:title, 'New gift') %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@gift) do |f| %>
+
+      <%= f.label :title, " Title" %>
+      <%= f.text_field :title %><br>
+
+      <%= f.label :description, "A longer description of your gift with any relevant details, including URLs, ISBNs, etc" %>
+      <%= f.text_area :description, :cols => "10", :rows => "10" %><br>
+
+      <% if @recipient %>
+        <%= f.hidden_field :recipient_id, value: @recipient.id %>
+      <% else %>
+        <%= f.label :recipient_id, "Who are you giving this to?" %><br>
+        <%= render partial: "friends/radio_buttons.html.erb", locals: {f: f, params: params}, object: @wish%>
+      <% end %>
+
+      <%= f.hidden_field :giver_id, value: current_user.id %>
+      <%= f.hidden_field :year, value: Time.christmas_year %>
+
+      <%= f.submit "Give gift", class: "btn btn-primary" %>
+      <%= link_to "Cancel", friend_path(id: current_user.id) %>
+    <% end %>
+  </div>
+</div>

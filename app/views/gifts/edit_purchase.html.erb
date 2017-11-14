@@ -24,7 +24,7 @@
         <% :asked_for = false %>
         <% :giver = current_user.name %>
         <% :intend_to_give = true %>
-        <% :recieved = nil %>
+        <% :received = nil %>
 
         <%= f.submit "Update gift", class: "btn btn-primary" %>
         <%= link_to "Cancel", friend_path(id: current_user.id) %>

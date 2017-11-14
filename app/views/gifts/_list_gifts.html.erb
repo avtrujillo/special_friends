@@ -9,10 +9,10 @@
       <li>Description: <%= gift.description %></li>
       <li>Fulfillment of: <%= gift ? gift.wish.name, 'none' %></li> /* to do: makes sure this works */
       <li>Shipped: <%= gift.shipped %></li>
-      <% if @gift.recieved %>
-        <li>Recieved: <%= @gift.recieved %></li>
+      <% if @gift.received %>
+        <li>Received: <%= @gift.received %></li>
       <% else %>
-        <li>Not yet recieved</li>
+        <li>Not yet received</li>
       <% end %>
 
       <% elsif gift.recipient == current_user.name %>
@@ -21,10 +21,10 @@
         <li>Giver: <%= link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver.name}).id) %></li>
         <li>Wished for?: <%= gift.asked_for %></li>
         <li>Shipped: <%= gift.shipped %></li>
-        <% if !!@gift.recieved == true %>
-          <li>Recieved on: <%= @gift.recieved %></li>
+        <% if !!@gift.received == true %>
+          <li>Received on: <%= @gift.received %></li>
         <% else %>
-          <li><%= link_to "Let people know you've recieved this!", recieved_path(id: gift.id)</li> %>
+          <li><%= link_to "Let people know you've received this!", received_path(id: gift.id)</li> %>
         <% end %>
       <% else %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>

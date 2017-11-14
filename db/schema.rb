@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20171108083851) do
     t.string "giver"
     t.string "recipient"
     t.date "shipped"
-    t.date "recieved"
+    t.date "received"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"

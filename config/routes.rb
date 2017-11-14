@@ -9,15 +9,17 @@ Rails.application.routes.draw do
   get '/help',             to: 'static_pages#help'
   #get '/home',             to: 'static_pages#home'
 
-  get 'my_recipient', to: 'friends#recipient',  as: 'recipient'
-  get 'my_giver',     to: 'friends#giver',      as: 'giver'
-  get 'generation',   to: 'friends#generation', as: 'generation'
-  get 'user',         to: 'friends#user',       as: 'user'
+  get 'my_recipient',   to: 'friends#recipient',  as: 'recipient'
+  get 'my_giver',       to: 'friends#giver',      as: 'giver'
+  get 'my_generation',  to: 'friends#generation', as: 'generation'
+  get 'user',           to: 'friends#user',       as: 'user'
+
+  resources :generations, only: :show
 
   concern :has_gifts do
     resources :gifts do
       member do
-        post 'recieved'
+        post 'received'
       end
     end
   end

@@ -24,7 +24,7 @@
       <li>Fulfillment of: <%= fulfillment_of, gift.wish  %></li> /* to do: makes sure this works */
     <% end %>
     <li>Shipped: <%= !!gift.shipped %></li>
-    <li>Recieved: <%= @gift.recieved %>
+    <li>Received: <%= @gift.received %>
       <% if gift.recipient == current_user.name %> <%# to do: reformat this */ %>
         <%= link_to "Give an update about whether this gift has arrived",
         edit_gift_path(gift.id) %>

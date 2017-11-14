@@ -15,10 +15,10 @@
         <li>Wished for?: <%= gift.asked_for %></li>
         <li>Fulfilled?: <%= gift.intend_to_give %></li>
         <li>Shipped: <%= gift.shipped %></li>
-        <% if @gift.recieved %>
-          <li>Recieved on: <%= @gift.recieved %></li>
+        <% if @gift.received %>
+          <li>Received on: <%= @gift.received %></li>
         <% else %>
-          <li>Not yet recieved</li>
+          <li>Not yet received</li>
         <% end %>
       <% elsif gift.recipient == current_user.name %>
         <li><%= link_to "?????????", gift_path(id: gift.id) %></li>
@@ -26,8 +26,8 @@
         <li>Giver: <%= (link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver}).id)) if @friends.any? {|f| f.name == gift.giver} %></li>
         <li>Wished for?: <%= gift.asked_for %></li>
         <li>Shipped: <%= gift.shipped %></li>
-        <% if @gift && @gift.recieved %>
-          <li>Recieved on: <%= @gift.recieved %></li>
+        <% if @gift && @gift.received %>
+          <li>Received on: <%= @gift.received %></li>
         <% else %>
           <li>
             <% if gift.recipient == current_user.name %> <%# to do: reformat this */ %>

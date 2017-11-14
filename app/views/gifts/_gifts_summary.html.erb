@@ -1,0 +1,19 @@
+<% raise unless current_user && gifts %>
+<TABLE BORDER="5">
+  <tr>
+    <th>Title</th>
+    <th>Giver</th>
+    <th>Recipient</th>
+    <th>Fulfills wish:</th>
+  </tr>
+  <% gifts.each do |gift| %>
+    <% unless current_user == gift.recipient %>
+      <tr>
+        <td><%= link_to gift.title, gift %></td>
+        <td><%= gift.giver.name %></td>
+        <td><%= gift.recipient.name %></td>
+        <td><%= (gift.wish.nil?) ? 'None' : gift.wish.name %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</TABLE>

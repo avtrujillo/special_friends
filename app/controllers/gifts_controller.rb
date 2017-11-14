@@ -1,8 +1,6 @@
 class GiftsController < ApplicationController
-  before_action :current_user # to do: should all_instances go here?
 
   def show
-    all_instances
     @gift = Gift.find_by(id: params[:id])
     if @gift.nil?
       render status: 404, file: "#{Rails.root}/public/404.html" and return
@@ -13,43 +11,37 @@ class GiftsController < ApplicationController
   end
 
   def index
-    all_instances
-    if params[:friend] && params[:friend][:name] == @current_user[:name]
-      @friend = @current_user
-      @receiving_gifts = Gift.where(recipient: @current_user)
-      @giving_gifts = Gift.where(giver: @current_user)
-      render 'user_gifts' # to do: make this
+    if params[:friend] && params[:friend][:id] == @current_user.id
+      render status: 403, file: "#{Rails.root}/public/403.html" and return
+      # to do: maybe have something other than an error here?
     elsif params[:friend]
-      @friend = Friend.find(params[:friend][:id])
-      @receiving_gifts = Gift.where(recipient: @friend)
-      @giving_gifts = Gift.where(giver: @friend)
-      @user_gifts = Gift.where(recipient: @current_user, giver: @friend)
-      render 'friend_gifts' # to do: make this
+      @friend = Friend.find_by(id: params[:friend][:id])
+      @wish = Wish.find_by(id: params[:wish][:id])
+      @receiving_gifts = Gift.where(recipient: @friend, year: Time.christmas_year).reject do |f|
+        f.recipient_id == @current_user.id
+      end
+      @giving_gifts = Gift.where(giver: @friend, year: Time.christmas_year).reject do |f|
+        f.recipient_id == @current_user.id
+      end
+      render 'friend_gifts' and return # to do: make this
     else
-      @friends_receiving_gifts = Friend.all.each_with_object(Hash.new([])) do |friend, ghash|
-        ghash[friend[:id]] == Gift.where(recipient: friend[:id])
-      end
-      @friends_giving_gifts = Friend.all.each_with_object(Hash.new([])) do |friend, ghash|
-        ghash[friend[:id]] == Gift.where(giver: friend[:id])
-      end
-      render 'index' # to do: make this
+      @gifts = Gift.where(year: Time.christmas_year)
+      render 'index' and return # to do: make this
     end
   end
 
   def new
     @gift = Gift.new
-    all_instances
     @wish = Wish.find(params[:wish][:id]) if params[:wish]
     @recipient = Friend.find(params[:friend][:id]) if params[:friend]
     @giver = @current_user
   end
 
   def create
-    all_instances
-    @gift = Gift.create(gift_params)
+    @gift = Gift.new(gift_params)
     if (@gift.recipient != @current_user) && @gift.save
       flash[:success] = 'Gift saved'
-      redirect_to Friend.find_by(name: @gift.recipient)
+      redirect_to Friend.find_by(id: @gift.recipient)
       # to do: customize this by the incoming url
     elsif @gift.recipient == @current_user
       flash[:danger] = "You can't give a gift to yourself"
@@ -63,7 +55,6 @@ class GiftsController < ApplicationController
   end
 
   def edit
-    all_instances
     @gift = Gift.find(params[:gift][:id])
     unless @gift.giver == @current_user
       flash[:danger] = 'You can only edit gifts that you are giving'
@@ -73,8 +64,7 @@ class GiftsController < ApplicationController
   end
 
   def update
-    all_instances
-    @gift = Gift.find(params[:gift][:id])
+    @gift = Gift.find_by(id: params[:gift][:id])
     if @gift.update(gift_params)
       flash[:success] = "Gift updated"
       redirect_to(@gift)
@@ -104,7 +94,7 @@ class GiftsController < ApplicationController
    redirect_to(@current_user) # to do: customize this by the incoming url
  end
 
-  def recieved
+  def received
     @gift = Gift.find(params[:id])
     @gift.received = true
     if @gift.recipient == @current_user && @gift.save
@@ -119,14 +109,9 @@ class GiftsController < ApplicationController
 
   private
 
-    def all_instances
-      @gifts = Gift.all
-      @friends = Friend.all
-      @wishes = Wish.all
-    end
-
     def gift_params
-      params.require(:gift).permit(:title, :description, :recipient, :asked_for, :intend_to_give, :giver, :shipped, :shipping_details, :recieved)
+      params.require(:gift).permit(:title, :description, :wish_id,
+        :recipient_id, :purchase_status, :giver_id)
     end
 
 end

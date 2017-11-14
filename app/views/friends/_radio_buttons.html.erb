@@ -1,0 +1,21 @@
+<% raise unless f %>
+
+<% Friend.all.to_a.each do |friend| %>
+  <%= sf_radio_button(friend) %> <%= friend.name %><br>
+<% end %>
+
+<% if params[:wish] %>
+  <%= f.hidden_field :wish_id, value: params[:wish][:id] %>
+<% else %>
+  <%= f.label :wish_id, "What wish, if any, is this gift fulfilling?" %>
+  <%= f.radio_button :wish_id, nil, checked: true %> <%= 'none' %><br>
+  <% Friend.all.to_a.each do |friend| %>
+    <div id="<%= "#{friend.name}wishes" %>" style="display : none">
+      <% friend.wishes.to_a.each do |wish| %>
+        <% if wish.year == Time.christmas_year %>
+          <%= f.radio_button :wish_id, wish.id %> <%= wish.title %><br>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
