@@ -1,21 +1,38 @@
 <% raise unless f %>
 
-<% Friend.all.to_a.each do |friend| %>
-  <%= sf_radio_button(friend) %> <%= friend.name %><br>
+<script>
+$(document).ready(function(){
+  var $gsel = $('gift_recipent_select');
+  $gsel.change(function(){
+    $gsel.empty();
+    var recipid = $('.gift_recipent_select option:selected').val();
+    var ajaxurl = "http://localhost:3000/friend_wishes_ajax";
+    var fullurl = ajaxurl + recipid + ".json";
+    $.getJSON(fullurl, function(result) {
+      $.each(result, function(i, friendwish) {
+        $gsel.append($("<option></option>")
+          .attr("value", friendwish.id).text(friendwish.title));
+      });
+    });
+  });
+});
+</script>
+
+<% if params[:friend_id] %>
+  <%= f.hidden_field(:recipient_id, value: params[:friend_id]) %>
+<% elsif params[:wish_id] %>
+  <%= f.hidden_field(:recipient_id, value: Wish.find(params[:wish_id]).friend_id) %>
+<% else %>
+  <%= f.label :recipient_id, 'Who is this gift for?' %>
+  <%= f.collection_select(:friend_id, Friend.all, :id, :name, id: 'gift_recipient_select') %>
 <% end %>
 
-<% if params[:wish] %>
-  <%= f.hidden_field :wish_id, value: params[:wish][:id] %>
+<% if params[:wish_id] %>
+  <%= f.hidden_field :wish_id, value: params[:wish_id] %>
+<% elsif params[:friend_id] %>
+  <%= f.collection_select(:wish_id, Friend.find(params[:friend_id]).wishes, :id,
+  :title, include_blank: true, id: 'gift_wish_select') %>
 <% else %>
   <%= f.label :wish_id, "What wish, if any, is this gift fulfilling?" %>
-  <%= f.radio_button :wish_id, nil, checked: true %> <%= 'none' %><br>
-  <% Friend.all.to_a.each do |friend| %>
-    <div id="<%= "#{friend.name}wishes" %>" style="display : none">
-      <% friend.wishes.to_a.each do |wish| %>
-        <% if wish.year == Time.christmas_year %>
-          <%= f.radio_button :wish_id, wish.id %> <%= wish.title %><br>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
+  <%= f.select :wish_id, [], include_blank: true, id: 'gift_wish_select' %>
 <% end %>

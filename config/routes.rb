@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'my_generation',  to: 'friends#generation', as: 'generation'
   get 'user',           to: 'friends#user',       as: 'user'
 
+  get 'friend_wishes_ajax/:id', to: 'wishes#friend_wishes_ajax'
+
   resources :generations, only: :show
 
   concern :has_gifts do
@@ -28,7 +30,7 @@ Rails.application.routes.draw do
     resources :wishes
   end
 
-  concerns :has_gifts, :has_wishes
+  concerns :has_gifts
 
   resources :friends, only: [:show, :index] do
     concerns :has_gifts, :has_wishes
