@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #get '/home',             to: 'static_pages#home'
 
   get 'my_recipient',       to: 'friends#recipient',  as: 'recipient'
-  get 'my_generation/:id',  to: 'generation#my_gen'
+  get 'my_generation',      to: 'generations#my_gen'
   get 'user',               to: 'friends#user',       as: 'user'
 
   get 'gifts/giver/:giver_id/recipient/:recipient_id', to: 'gifts#from_to'

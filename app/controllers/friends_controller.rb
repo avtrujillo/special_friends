@@ -10,6 +10,7 @@ class FriendsController < ApplicationController
 
   def index
     @friends = Friend.all
+    @generations = Generation.all
     @gifts = Gift.where(year: Time.christmas_year).reject do |gift|
       gift.recipient_id == current_user.id
     end
@@ -36,9 +37,9 @@ class FriendsController < ApplicationController
   def generation
     @generation = Generation.find_by(id: params[:id])
     if @generation
-      render 'show' and return
+      redirect_to @generation
     else
-      redirect_to @generation : render status: 404, file: "#{Rails.root}/public/404.html" and return
+      render status: 404, file: "#{Rails.root}/public/404.html" and return
     end
   end
 

@@ -1,4 +1,4 @@
-<%= Generation.all.each do |gen| %>
-  <h1><%= @generation.name %></h1>
+<% Generation.all.each do |gen| %>
+  <h1><%= gen.name %></h1>
   <%= render partial: 'generation_friends.html.erb', locals: {gen: gen} %>
 <% end %>

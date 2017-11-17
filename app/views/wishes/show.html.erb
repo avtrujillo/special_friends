@@ -1,0 +1,23 @@
+<% provide title: "Wish for #{@wish.title}" %>
+
+<h1><%= @wish.title %></h1>
+
+<h3>Description</h3>
+<%= @wish.description %><br>
+
+<h3>Wished for by:</h3>
+  <%= link_to @wish.friend.name, @wish.friend %><br>
+
+<h3>Fulfilled with:</h3>
+<% if current_user == @wish.friend %>
+<p>You'll just have to wait until Christmas!</p>
+<% elsif @wish.gifts.any? %>
+  <ul>
+    <%= @wish.gifts.each do |gift| %>
+      <% raise unless gift.recipient == wish.friend %>
+      <li><%= link_to gift.title, gift %></li>
+    <% end %>
+  </ul>
+<% else %>
+<p>None</p>
+<% end %>

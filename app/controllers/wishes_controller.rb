@@ -9,6 +9,10 @@ class WishesController < ApplicationController
   end
 
   def show
+    @wish = Wish.find_by(id: params[:id])
+    if params[:friend_id] && params[:friend_id] != @wish.friend_id
+      render status: 404, file: "#{Rails.root}/public/404.html" and return
+    end
   end
 
   def index

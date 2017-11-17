@@ -82,7 +82,7 @@ class GiftsController < ApplicationController
     begin
       @gift = Gift.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render status: 404, file: File.join(Rails.root, 'public', '404.html')
+      render status: 404, file: "#{Rails.root}/public/404.html"
       return
     end
     if @gift.giver == @current_user
@@ -99,9 +99,9 @@ class GiftsController < ApplicationController
 
   def from_to
     if !(params[:giver_id] && params[:recipient_id])
-      render status: 404, file: File.join(Rails.root, 'public', '404.html') and return
+      render status: 404, file: "#{Rails.root}/public/404.html" and return
     elsif params[:recipient_id] == current_user.id
-      render status: 403, file: File.join(Rails.root, 'public', '403.html') and return
+      render status: 403, file: "#{Rails.root}/public/403.html" and return
     else
       @giver = Friend.find_by(id: params[:giver_id])
       @recipient_id = Friend.find_by(id: params[:recipient_id])
