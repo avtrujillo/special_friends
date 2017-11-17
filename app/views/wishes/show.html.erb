@@ -13,8 +13,8 @@
 <p>You'll just have to wait until Christmas!</p>
 <% elsif @wish.gifts.any? %>
   <ul>
-    <%= @wish.gifts.each do |gift| %>
-      <% raise unless gift.recipient == wish.friend %>
+    <% @wish.gifts.each do |gift| %>
+      <% raise unless gift.recipient == @wish.friend %>
       <li><%= link_to gift.title, gift %></li>
     <% end %>
   </ul>

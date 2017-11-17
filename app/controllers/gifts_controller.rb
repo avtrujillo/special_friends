@@ -11,7 +11,7 @@ class GiftsController < ApplicationController
   end
 
   def index
-    if params[:friend_id] == @current_user.id
+    if params[:friend_id].to_i == @current_user.id
       render status: 403, file: "#{Rails.root}/public/403.html" and return
       # to do: maybe have something other than an error here?
     elsif params[:friend_id]
@@ -100,12 +100,14 @@ class GiftsController < ApplicationController
   def from_to
     if !(params[:giver_id] && params[:recipient_id])
       render status: 404, file: "#{Rails.root}/public/404.html" and return
-    elsif params[:recipient_id] == current_user.id
+    elsif params[:recipient_id] == current_user.id.to_i
       render status: 403, file: "#{Rails.root}/public/403.html" and return
     else
       @giver = Friend.find_by(id: params[:giver_id])
       @recipient_id = Friend.find_by(id: params[:recipient_id])
-      @gifts = Friend.where(giver_id: params[:giver_id], recipient_id: params[:recipient_id])
+      @gifts = Gift.where(giver_id: params[:giver_id], recipient_id: params[:recipient_id])
+      @foo = params[:recipient_id]
+      @bar = current_user.id.to_i
       render 'index' and return
     end
   end

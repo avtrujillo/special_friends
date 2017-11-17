@@ -56,7 +56,7 @@ class FriendsController < ApplicationController
   end
 
   def receiving
-    if params[:id] == current_user.id
+    if params[:id].to_i == current_user.id
       render status: 403, file: "#{Rails.root}/public/403.html" and return
     elsif params[:id]
       @gifts = Gift.where(year: Time.christmas_year, recipient_id: params[:id])

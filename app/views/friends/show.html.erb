@@ -8,7 +8,7 @@
 <ul>
   <% @friend_gifts.each do |gift| %>
     <li>
-      <% if gift.giver == current_user.name %>
+      <% if gift.giver_id == current_user.id %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient}).id) %></li>
         <li>Purchase status: <%= gift.purchase_status %></li>
@@ -17,7 +17,7 @@
         <% else %>
           <li>Not yet received</li>
         <% end %>
-      <% elsif gift.recipient == current_user.name %>
+      <% elsif gift.recipient_id == current_user.id %>
         <li><%= link_to "?????????", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient}).id) %></li>
         <li>Giver: <%= (link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver}).id)) if @friends.any? {|f| f.name == gift.giver} %></li>
@@ -27,7 +27,7 @@
           <li>Received on: <%= @gift.received %></li>
         <% else %>
           <li>
-            <% if gift.recipient == current_user.name %> <%# to do: reformat this */ %>
+            <% if gift.recipient_id == current_user.id %> <%# to do: reformat this */ %>
               <%= link_to "Give an update about whether this gift has arrived",
               edit_gift_path(gift.id) %>
             <% end %>
