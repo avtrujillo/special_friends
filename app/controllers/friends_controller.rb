@@ -12,23 +12,26 @@ class FriendsController < ApplicationController
   end
 
   def recipient
-    redirect_to current_user.recipient
-  end
-
-  def giver
-    @friend = current_user.giver
+    @friend = current_user.recipient
     @friends = Friend.all
     @gifts = Gift.all
-    render 'giver.html.erb'
+    render 'show' and return
   end
 
   def user
-    redirect_to current_user
+    @friend = current_user
+    @friends = Friend.all
+    @gifts = Gift.all
+    render 'show' and return
   end
 
   def generation
-    @generation = Generation.find_by(id: params[:id]) || current_user.generation
-    render 'generations/generation.html.erb'
+    @generation = Generation.find_by(id: params[:id])
+    if @generation
+      render 'show' and return
+    else
+      redirect_to @generation : render status: 404, file: "#{Rails.root}/public/404.html" and return
+    end
   end
 
 end

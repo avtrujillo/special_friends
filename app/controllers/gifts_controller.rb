@@ -32,8 +32,11 @@ class GiftsController < ApplicationController
 
   def new
     @gift = Gift.new
-    @wish = Wish.find(params[:wish][:id]) if params[:wish]
-    @recipient = Friend.find(params[:friend][:id]) if params[:friend]
+    @wish = Wish.find_by(id: params[:wish_id])
+    @recipient = Friend.find_by(id: params[:friend_id])
+    if @wish && @recipient && @wish.friend != @recipient
+      render status: 404, file: "#{Rails.root}/public/404.html" and return
+    end
     @giver = @current_user
   end
 

@@ -1,0 +1,7 @@
+<% provide(:title, @generation.name) %>
+
+<h1><%= @generation.name %></h1>
+
+<%= render partial: "generation_friends.html.erb", locals: {gen: @generation} %>
+
+<%= link_to 'All Generations', @generations_path %>

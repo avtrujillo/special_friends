@@ -1,12 +1,5 @@
 <% provide(:title, "Friends") %>
 
-<% Generation.all.each do |gen| %>
-  <h1><%= gen.name %></h1>
-  <ul>
-    <% gen.friends.each do |friend| %>
-      <li>
-        <%= link_to friend.name, friend_path(friend) %>
-      </li>
-    <% end %>
-  </ul>
+<% @generations.all.each do |gen| %>
+  <%= render partial: "generations/generation_friends.html.erb", locals: {gen: gen} %>
 <% end %>

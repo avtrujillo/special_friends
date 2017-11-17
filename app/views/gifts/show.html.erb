@@ -10,8 +10,10 @@
   <%= @gift.recipient.name %>
   <% if @gift.wish %>
     <h4>Fulfillment of wish:</h4>
-    <%= link_to gift.wish.title, wish_path(@gift.wish) %>
+    <%= link_to @gift.wish.title, wish_path(@gift.wish) %>
   <% end %>
+  <h4>Status</h4>
+  <%= @gift.purchase_status %>
 <% end %>
 
 <% if (current_user == @gift.giver) %>

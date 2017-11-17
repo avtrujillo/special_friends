@@ -10,20 +10,15 @@ Rails.application.routes.draw do
   #get '/home',             to: 'static_pages#home'
 
   get 'my_recipient',   to: 'friends#recipient',  as: 'recipient'
-  get 'my_giver',       to: 'friends#giver',      as: 'giver'
-  get 'my_generation',  to: 'friends#generation', as: 'generation'
+  get 'my_generation',  to: 'generation#my_gen'
   get 'user',           to: 'friends#user',       as: 'user'
 
   get 'friend_wishes_ajax/:id', to: 'wishes#friend_wishes_ajax'
 
-  resources :generations, only: :show
+  resources :generations, only: [:show, :index]
 
   concern :has_gifts do
-    resources :gifts do
-      member do
-        post 'received'
-      end
-    end
+    resources :gifts
   end
 
   concern :has_wishes do
@@ -33,6 +28,9 @@ Rails.application.routes.draw do
   concerns :has_gifts, :has_wishes
 
   resources :friends, only: [:show, :index] do
+    member do
+      get 'generation', to: "friends#generation"
+    end
     concerns :has_gifts, :has_wishes
     # '/friends/gifts/index' will list the gifts that a friend is receiving
   end

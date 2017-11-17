@@ -1,8 +1,6 @@
 <% raise unless current_user && gift %>
 <% if gift.recipient == current_user %>
-  <% gift_title = '?????????' %>
-  <% fulfillment_of = '?????????' %>
-  <% description = '?????????' %>
+  <% raise %>
 <% else %>
   <% gift_title = gift.title %>
   <% fulfillment_of = gift.wish ? gift.wish.name : 'none' %>
