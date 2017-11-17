@@ -5,7 +5,6 @@ class CreateWishes < ActiveRecord::Migration[5.1]
       t.text      :description
       t.integer   :friend_id
       t.integer   :year
-      t.integer   :intend_to_fulfill_id
       t.timestamps
     end
   end

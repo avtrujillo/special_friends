@@ -15,16 +15,16 @@
         <%= f.collection_select(:wish_id, Friend.find(params[@recipient.id]).wishes, :id,
         :title, include_blank: true, id: 'gift_wish_select') %>
       <% else %>
-        <%= f.label :recipient_id, "Who are you giving this to?" %><br>
         <%= render partial: "gift_selectors.html.erb", locals: {f: f, params: params}, object: @wish%>
       <% end %><br>
 
-      <%= f.radio_button :purchase_status, "intend", checked: true %>
+      <h4>Have you purcased and/or sent this gift yet?</h4>
       <%= f.label :purchase_status_intend, "I have not yet purchased this item, but I intend to" %>
-      <%= f.radio_button :purchase_status, "purchased" %>
+      <%= f.radio_button :purchase_status, "intend", checked: true %>
       <%= f.label :purchase_status_purchased, "I have already purchased this item, but have not sent it out yet" %>
-      <%= f.radio_button :purchase_status, "sent" %>
+      <%= f.radio_button :purchase_status, "purchased" %>
       <%= f.label :purchase_status_sent, "I have already purchased and sent this item" %>
+      <%= f.radio_button :purchase_status, "sent" %>
 
       <%= f.hidden_field :giver_id, value: current_user.id %>
       <%= f.hidden_field :year, value: Time.christmas_year %>

@@ -7,7 +7,7 @@
 <% else %>
   <%= f.label :recipient_id, 'Who is this gift for?' %>
   <%= f.select(:recipient_id, Friend.all.to_a.map{ |fr| [fr.name, fr.id]}.prepend(["", nil]),
-    id: 'gift_recipient_select') %>
+    id: 'gift_recipient_select') %><br>
 <% end %>
 
 <% if params[:wish_id] %>

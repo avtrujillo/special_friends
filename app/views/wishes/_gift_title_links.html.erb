@@ -1,0 +1,6 @@
+<% wish.gifts.to_a.each do |gift| %>
+  <%= link_to gift.title, gift %>
+  <% unless wish.gifts.to_a.last == gift %>
+    <%= ", " %>
+  <% end %>
+<% end %>

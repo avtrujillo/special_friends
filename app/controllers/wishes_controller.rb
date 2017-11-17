@@ -8,7 +8,12 @@ class WishesController < ApplicationController
   def create
   end
 
+  def show
+  end
+
   def index
+    @friend = Friend.find_by(id: params[:friend_id]) if params[:friend_id]
+    @wishes = (@friend) ? Wish.where(friend_id: @friend.id) : Wish.all
   end
 
   def friend_wishes_ajax

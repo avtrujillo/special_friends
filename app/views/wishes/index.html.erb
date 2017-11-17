@@ -1,0 +1,28 @@
+<% provide title: (@friend ? "#{@friend.name}'s Wishes" : "All Wishes") %>
+
+<TABLE BORDER="5">
+  <tr>
+    <th>Title</th>
+    <% unless @friend %>
+      <th>Wisher</th>
+    <% end %>
+    <th colspan="3">Description</th>
+    <th colspan="3">Fulfilled with:</th>
+  </tr>
+  <% @wishes.each do |wish| %>
+    <tr>
+      <td><%= link_to wish.title, wish %></td>
+      <% unless @friend %>
+      <td><%= wish.friend.name %></td>
+      <% end %>
+      <td colspan="3"><%= wish.description %></td>
+      <% if current_user == wish.friend %>
+        <td colspan="3">You'll just have to wait until Christmas!</td>
+      <% elsif wish.gifts.any? %>
+        <td colspan="3"><%= render partial: 'gift_title_links', locals: {wish: wish} %></td>
+      <% else %>
+        <td colspan="3">None</td>
+      <% end %>
+    </tr>
+  <% end %>
+</TABLE>

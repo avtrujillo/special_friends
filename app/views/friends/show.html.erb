@@ -11,10 +11,7 @@
       <% if gift.giver == current_user.name %>
         <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
         <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient}).id) %></li>
-        <li>Description: <%= gift.description %></li>
-        <li>Wished for?: <%= gift.asked_for %></li>
-        <li>Fulfilled?: <%= gift.intend_to_give %></li>
-        <li>Shipped: <%= gift.shipped %></li>
+        <li>Purchase status: <%= gift.purchase_status %></li>
         <% if @gift.received %>
           <li>Received on: <%= @gift.received %></li>
         <% else %>

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root 'sessions#new'
 
+  get 'error/:error_id', to: 'htmlerrors#error_status_page'
+
   get    '/login',   to: 'sessions#new', as: 'login'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
@@ -9,29 +11,28 @@ Rails.application.routes.draw do
   get '/help',             to: 'static_pages#help'
   #get '/home',             to: 'static_pages#home'
 
-  get 'my_recipient',   to: 'friends#recipient',  as: 'recipient'
-  get 'my_generation',  to: 'generation#my_gen'
-  get 'user',           to: 'friends#user',       as: 'user'
+  get 'my_recipient',       to: 'friends#recipient',  as: 'recipient'
+  get 'my_generation/:id',  to: 'generation#my_gen'
+  get 'user',               to: 'friends#user',       as: 'user'
+
+  get 'gifts/giver/:giver_id/recipient/:recipient_id', to: 'gifts#from_to'
 
   get 'friend_wishes_ajax/:id', to: 'wishes#friend_wishes_ajax'
 
   resources :generations, only: [:show, :index]
 
-  concern :has_gifts do
-    resources :gifts
-  end
+  resources :gifts
 
-  concern :has_wishes do
-    resources :wishes
-  end
-
-  concerns :has_gifts, :has_wishes
+  resources :wishes
 
   resources :friends, only: [:show, :index] do
     member do
-      get 'generation', to: "friends#generation"
+      get 'generation',      to: "friends#generation"
+      get 'giving_gifts',    to: 'friends#giving'
+      get 'receiving_gifts', to: 'friends#receiving'
     end
-    concerns :has_gifts, :has_wishes
+    resources :gifts
+    resources :wishes
     # '/friends/gifts/index' will list the gifts that a friend is receiving
   end
 

@@ -13,45 +13,43 @@
 ActiveRecord::Schema.define(version: 20171108083851) do
 
   create_table "forbidden_matches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "friend_1_id"
     t.integer "friend_2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friend_matches", force: :cascade do |t|
     t.integer "giver_id"
     t.integer "recipient_id"
     t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friends", force: :cascade do |t|
     t.string "name"
+    t.integer "generation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "generation_id"
-    t.integer "forbidden_match_id"
   end
 
   create_table "generations", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "gifts", force: :cascade do |t|
     t.string "title"
-    t.string "giver"
-    t.string "recipient"
-    t.date "shipped"
-    t.date "received"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.text "description"
     t.integer "wish_id"
     t.integer "giver_id"
     t.integer "recipient_id"
-    t.boolean "intend_to_give"
-    t.text "shipping_details"
+    t.text "purchase_status"
     t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "wishes", force: :cascade do |t|

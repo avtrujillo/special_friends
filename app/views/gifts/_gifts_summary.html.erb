@@ -2,17 +2,31 @@
 <TABLE BORDER="5">
   <tr>
     <th>Title</th>
-    <th>Giver</th>
-    <th>Recipient</th>
-    <th>Fulfills wish:</th>
+    <% unless giver %>
+      <th>Giver</th>
+    <% end %>
+    <% unless recipient %>
+      <th>Recipient</th>
+    <% end %>
+    <% unless wish %>
+      <th>Fulfills wish</th>
+    <% end %>
+    <th>Purchase status</th>
   </tr>
   <% gifts.each do |gift| %>
     <% unless current_user == gift.recipient %>
       <tr>
         <td><%= link_to gift.title, gift %></td>
+        <% unless giver %>
         <td><%= gift.giver.name %></td>
+        <% end %>
+        <% unless recipient %>
         <td><%= gift.recipient.name %></td>
+        <% end %>
+        <% unless wish %>
         <td><%= (gift.wish.nil?) ? 'None' : gift.wish.title %></td>
+        <% end %>
+        <td><%= gift.purchase_status %></td>
       </tr>
     <% end %>
   <% end %>

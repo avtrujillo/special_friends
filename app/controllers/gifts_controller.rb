@@ -11,10 +11,10 @@ class GiftsController < ApplicationController
   end
 
   def index
-    if params[:friend] && params[:friend][:id] == @current_user.id
+    if params[:friend_id] == @current_user.id
       render status: 403, file: "#{Rails.root}/public/403.html" and return
       # to do: maybe have something other than an error here?
-    elsif params[:friend]
+    elsif params[:friend_id]
       @friend = Friend.find_by(id: params[:friend][:id])
       @wish = Wish.find_by(id: params[:wish][:id])
       @receiving_gifts = Gift.where(recipient: @friend, year: Time.christmas_year).reject do |f|
@@ -95,19 +95,19 @@ class GiftsController < ApplicationController
      flash[:danger] = "You may only delete gifts that you are giving"
    end
    redirect_to(@current_user) # to do: customize this by the incoming url
- end
+  end
 
-  def received
-    @gift = Gift.find(params[:id])
-    @gift.received = true
-    if @gift.recipient == @current_user && @gift.save
-      flash[:success] = "Gift marked as received"
-    elsif @gift.recipient != @current_user
-      flash[:failure] = "You can only mark gifts for you as received"
+  def from_to
+    if !(params[:giver_id] && params[:recipient_id])
+      render status: 404, file: File.join(Rails.root, 'public', '404.html') and return
+    elsif params[:recipient_id] == current_user.id
+      render status: 403, file: File.join(Rails.root, 'public', '403.html') and return
     else
-      flash[:failure] = "Gift not marked as received"
+      @giver = Friend.find_by(id: params[:giver_id])
+      @recipient_id = Friend.find_by(id: params[:recipient_id])
+      @gifts = Friend.where(giver_id: params[:giver_id], recipient_id: params[:recipient_id])
+      render 'index' and return
     end
-    redirect_to(@gift) # to do: customize this by the incoming url
   end
 
   private
