@@ -25,7 +25,7 @@ var $url_arr = window.location.href.split("/");
 var $root_url = $url_arr[0] + "//" + $url_arr[2];
 $("select#gift_recipient_id").change(function(){
   var full_url = $root_url + "/friend_wishes_ajax" + "/" + $("select#gift_recipient_id option:selected:first").val() + ".json";
-  $("select#gift_wish_id").empty;
+  $('select#gift_wish_id option:gt(0)').remove();
   $.getJSON( full_url, function( data ) {
     $.each( data, function( ind, val ) {
       $("select#gift_wish_id").append($("<option></option>")
