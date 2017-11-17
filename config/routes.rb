@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :wishes
   end
 
-  concerns :has_gifts
+  concerns :has_gifts, :has_wishes
 
   resources :friends, only: [:show, :index] do
     concerns :has_gifts, :has_wishes
