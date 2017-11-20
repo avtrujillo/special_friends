@@ -2,13 +2,13 @@
 <TABLE BORDER="5">
   <tr>
     <th>Title</th>
-    <% if giver %>
+    <% if @giver %>
       <th>Giver</th>
     <% end %>
-    <% if recipient %>
+    <% if @recipient %>
       <th>Recipient</th>
     <% end %>
-    <% unless wish %>
+    <% unless @wish %>
       <th>Fulfills wish</th>
     <% end %>
     <th>Purchase status</th>
@@ -17,13 +17,13 @@
     <% unless current_user == gift.recipient %>
       <tr>
         <td><%= link_to gift.title, gift %></td>
-        <% if giver %>
+        <% if @giver %>
         <td><%= gift.giver.name %></td>
         <% end %>
-        <% if recipient %>
+        <% if @recipient %>
         <td><%= gift.recipient.name %></td>
         <% end %>
-        <% unless wish %>
+        <% unless @wish %>
         <td><%= (gift.wish.nil?) ? 'None' : gift.wish.title %></td>
         <% end %>
         <td><%= gift.purchase_status %></td>

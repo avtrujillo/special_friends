@@ -2,12 +2,12 @@
 
 <%# to do: improve this %>
 <h1>Gifts that <%= @friend.name %> is giving</h1>
-<%= render partial: 'gifts_summary', locals: {gifts: @giving_gifts} %>
+<%= render partial: 'gifts_summary', locals: {gifts: @giving_gifts, giver: nil, recipient: nil} %>
 
 <br>
 
 <h1>Gifts that <%= @friend.name %> is receiving</h1>
-<%= render partial: 'gifts_summary', locals: {gifts: @receiving_gifts} %>
+<%= render partial: 'gifts_summary', locals: {gifts: @receiving_gifts, giver: nil, recipient: nil} %>
 
 <br>
 
