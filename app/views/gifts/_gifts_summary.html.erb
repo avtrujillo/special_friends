@@ -2,10 +2,10 @@
 <TABLE BORDER="5">
   <tr>
     <th>Title</th>
-    <% unless giver %>
+    <% if giver %>
       <th>Giver</th>
     <% end %>
-    <% unless recipient %>
+    <% if recipient %>
       <th>Recipient</th>
     <% end %>
     <% unless wish %>
@@ -17,10 +17,10 @@
     <% unless current_user == gift.recipient %>
       <tr>
         <td><%= link_to gift.title, gift %></td>
-        <% unless giver %>
+        <% if giver %>
         <td><%= gift.giver.name %></td>
         <% end %>
-        <% unless recipient %>
+        <% if recipient %>
         <td><%= gift.recipient.name %></td>
         <% end %>
         <% unless wish %>
