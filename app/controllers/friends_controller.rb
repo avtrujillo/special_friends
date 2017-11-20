@@ -3,8 +3,10 @@ class FriendsController < ApplicationController
   def show
     @friend = Friend.find(params[:id])
     @friends = Friend.all
-    @gifts = Gift.where(year: Time.christmas_year).reject do |gift|
-      gift.recipient_id == current_user.id
+    @wishes = Wish.where(year: Time.christmas_year, friend_id: @friend.id).to_a
+    @gifts = Gift.where(year: Time.christmas_year).select do |gift|
+      gift.recipient_id != current_user.id
+      @wishes.any? { |wish| wish.id == gift.wish_id }
     end
   end
 
@@ -19,8 +21,10 @@ class FriendsController < ApplicationController
   def recipient
     @friend = current_user.recipient
     @friends = Friend.all
+    @wishes = Wish.where(year: Time.christmas_year, friend_id: @friend.id).to_a
     @gifts = Gift.where(year: Time.christmas_year).reject do |gift|
-      gift.recipient_id == current_user.id
+      gift.recipient_id != current_user.id
+      @wishes.any? { |wish| wish.id == gift.wish_id }
     end
     render 'show' and return
   end
@@ -28,8 +32,10 @@ class FriendsController < ApplicationController
   def user
     @friend = current_user
     @friends = Friend.all
-    @gifts = Gift.where(year: Time.christmas_year).reject do |gift|
-      gift.recipient_id == current_user.id
+    @wishes = Wish.where(year: Time.christmas_year, friend_id: @friend.id).to_a + []
+    @gifts = Gift.where(year: Time.christmas_year).select do |gift|
+      gift.recipient_id != current_user.id
+      @wishes.any? { |wish| wish.id == gift.wish_id }
     end
     render 'show' and return
   end

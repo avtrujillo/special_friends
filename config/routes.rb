@@ -31,8 +31,8 @@ Rails.application.routes.draw do
       get 'giving_gifts',    to: 'friends#giving'
       get 'receiving_gifts', to: 'friends#receiving'
     end
-    resources :gifts
-    resources :wishes
+    resources :gifts,   only: [:show, :index, :new]
+    resources :wishes,  only: [:show, :index]
     # '/friends/gifts/index' will list the gifts that a friend is receiving
   end
 

@@ -11,12 +11,12 @@ class GiftsController < ApplicationController
   end
 
   def index
-    if params[:friend_id].to_i == @current_user.id
+    if params[:friend_id].to_i == @current_user.id.to_i
       render status: 403, file: "#{Rails.root}/public/403.html" and return
       # to do: maybe have something other than an error here?
     elsif params[:friend_id]
-      @friend = Friend.find_by(id: params[:friend][:id])
-      @wish = Wish.find_by(id: params[:wish][:id])
+      @friend = Friend.find_by(id: params[:friend_id])
+      @wish = Wish.find_by(id: params[:wish_id])
       @receiving_gifts = Gift.where(recipient: @friend, year: Time.christmas_year).reject do |f|
         f.recipient_id == @current_user.id
       end
@@ -58,7 +58,7 @@ class GiftsController < ApplicationController
   end
 
   def edit
-    @gift = Gift.find(params[:gift][:id])
+    @gift = Gift.find(params[:gift_id])
     unless @gift.giver == @current_user
       flash[:danger] = 'You can only edit gifts that you are giving'
       redirect_to(@gift)

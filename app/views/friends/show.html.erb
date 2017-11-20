@@ -1,47 +1,34 @@
 <% provide(:title, @friend.name) %>
-<% @friend_gifts = @gifts.select {|gift| gift.recipient == @friend.name} %>
 
 <% if current_user.recipient == @friend.name %>
   <h1>This person is your special friend</h1>
 <% end %>
-<h2>Gifts that <%= "#{@friend.name}" %> is recieving and/or has asked for:</h2>
-<ul>
-  <% @friend_gifts.each do |gift| %>
-    <li>
-      <% if gift.giver_id == current_user.id %>
-        <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
-        <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient}).id) %></li>
-        <li>Purchase status: <%= gift.purchase_status %></li>
-        <% if @gift.received %>
-          <li>Received on: <%= @gift.received %></li>
-        <% else %>
-          <li>Not yet received</li>
-        <% end %>
-      <% elsif gift.recipient_id == current_user.id %>
-        <li><%= link_to "?????????", gift_path(id: gift.id) %></li>
-        <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.recipient}).id) %></li>
-        <li>Giver: <%= (link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver}).id)) if @friends.any? {|f| f.name == gift.giver} %></li>
-        <li>Wished for?: <%= gift.asked_for %></li>
-        <li>Shipped: <%= gift.shipped %></li>
-        <% if @gift && @gift.received %>
-          <li>Received on: <%= @gift.received %></li>
-        <% else %>
-          <li>
-            <% if gift.recipient_id == current_user.id %> <%# to do: reformat this */ %>
-              <%= link_to "Give an update about whether this gift has arrived",
-              edit_gift_path(gift.id) %>
-            <% end %>
-          </li>
-        <% end %>
-      <% else %>
-        <li><%= link_to "Title: #{gift.title}", gift_path(id: gift.id) %></li>
-        <li>Recipient: <%= link_to "#{gift.recipient}", friend_path(id: (@friends.find {|friend| friend.name == gift.name}).id) %></li>
-        <li>Giver: <%= link_to "#{gift.giver}", friend_path(id: (@friends.find {|friend| friend.name == gift.giver.name}).id) %></li>
+<h2>Wishes</h2>
+<table border=5>
+  <thead>
+    <th>Title</th>
+    <th colspan="5">Description</th>
+    <% unless @friend == current_user %>
+      <th colspan="5">Fulfilled with:</th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @wishes.each do |wish| %>
+      <td><%= link_to wish.title, wish %></td>
+      <td colspan="5"><%= wish.description %></td>
+      <% unless @friend == current_user %>
+        <th colspan="5"><%= wish.gifts.to_a.map(&:title) %></th>
       <% end %>
-    </li>
-  <% end %>
-</ul>
+    <% end %>
+  </tbody>
+</table>
 
+<h2><%= link_to "All gifts that #{@friend.name} is receiving", friend_gifts_path(@friend) %>
+
+<br>
+<h2>Generation</h2>
+<%= link_to @friend.generation.name, generation_friend_path(@friend) %>
+<br>
 <% if @friend.id == current_user.id %>
   <%= link_to "Add gift to wishlist", new_wish_path %>
 <% else %>

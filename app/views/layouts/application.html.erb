@@ -19,9 +19,9 @@
               <li><%= link_to "All Wishes", wishes_path %></li>
               <li><%= link_to "My Generation", my_generation_path %></li>
               <li><%= link_to "My Recipient", recipient_path %></li>
-              <li><%= link_to "Me", current_user %></li>
+              <li><%= link_to "Me", user_path %></li>
               <li><%= link_to "My Wish List", friend_wishes_path(current_user) %></li>
-              <li><%= link_to "Gift's I'm Giving", friend_gifts_path(current_user.given_gifts) %></li>
+              <li><%= link_to "Gift's I'm Giving", giving_gifts_friend_path(current_user) %></li>
               <li><%= link_to "Logout", logout_path, method: :delete %></li>
             </ul>
           </nav>
