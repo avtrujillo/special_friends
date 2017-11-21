@@ -4,11 +4,11 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@gift) do |f| %>
 
-      <%= f.label :title, " Title" %>
-      <%= f.text_field :title %><br>
+      <%= f.label :title, "Title" %>
+      <%= f.text_field :title, class: 'form-control'  %><br>
 
       <%= f.label :description, "A longer description of your gift with any relevant details, including URLs, ISBNs, etc" %>
-      <%= f.text_area :description, :cols => "10", :rows => "10" %><br>
+      <%= f.text_area :description, :cols => "10", :rows => "10", class: 'form-control'  %><br>
 
       <% if @recipient %>
         <%= f.hidden_field :recipient_id, value: @recipient.id %>
@@ -19,12 +19,18 @@
       <% end %><br>
 
       <h4>Have you purcased and/or sent this gift yet?</h4>
-      <%= f.label :purchase_status_intend, "I have not yet purchased this item, but I intend to" %>
-      <%= f.radio_button :purchase_status, "intend", checked: true %>
-      <%= f.label :purchase_status_purchased, "I have already purchased this item, but have not sent it out yet" %>
-      <%= f.radio_button :purchase_status, "purchased" %>
-      <%= f.label :purchase_status_sent, "I have already purchased and sent this item" %>
-      <%= f.radio_button :purchase_status, "sent" %>
+      <%= f.label :purchase_status_intend,
+        "I have not yet purchased this item, but I intend to" %>
+      <%= f.radio_button :purchase_status, "intend",
+        checked: @gift.purchase_status == 'intend' %>
+      <%= f.label :purchase_status_purchased,
+        "I have already purchased this item, but have not sent it out yet" %>
+      <%= f.radio_button :purchase_status, "purchased",
+        checked: @gift.purchase_status == 'purchased' %>
+      <%= f.label :purchase_status_sent,
+        "I have already purchased and sent this item" %>
+      <%= f.radio_button :purchase_status, "sent",
+        checked: @gift.purchase_status == 'sent' %>
 
       <%= f.hidden_field :giver_id, value: current_user.id %>
       <%= f.hidden_field :year, value: Time.christmas_year %>
