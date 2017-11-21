@@ -11,14 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :friend_match_id %>
-    <%= form.number_field :friend_match_id, id: :friend_message_friend_match_id %>
-  </div>
+
+  <%= form.hidden_field :friend_match_id,
+    value: (sending_as == :giver ? current_user.giver_match : current_user. recipient_match) %>
+
 
   <div class="field">
-    <%= form.label :sender_id %>
-    <%= form.number_field :sender_id, id: :friend_message_sender_id %>
+    <%= form.hidden_field :sender_id, value: current_user.id %>
   </div>
 
   <div class="field">
