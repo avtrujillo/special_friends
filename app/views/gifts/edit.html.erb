@@ -1,0 +1,51 @@
+<% provide(:title, 'New gift') %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@gift) do |f| %>
+
+      <%= f.label :title, " Title" %>
+      <%= f.text_field :title, class: 'form-control' %><br>
+
+      <%= f.label :description, "A longer description of your gift with any relevant details, including URLs, ISBNs, etc" %>
+      <%= f.text_area :description, :cols => "10", :rows => "10", class: 'form-control' %><br>
+
+
+      <%= f.label :recipient_id, 'Who is this gift for?' %>
+      <%= f.collection_select(:recipient_id, Friend.all, :id, :name,
+        include_blank: false, id: 'gift_recipient_select', selected: @gift.recipient) %>
+
+      <%= f.label :wish_id, "What wish, if any, is this gift fulfilling?" %>
+      <%= f.collection_select(:wish_id, @gift.recipient.wishes, :id,
+        :title, include_blank: true, id: 'gift_wish_select', selected: @gift.wish) %>
+
+      <h4>Have you purcased and/or sent this gift yet?</h4>
+      <%= f.label :purchase_status_intend, "I have not yet purchased this item, but I intend to" %>
+      <%= f.radio_button :purchase_status, "intend", checked: true %>
+      <%= f.label :purchase_status_purchased, "I have already purchased this item, but have not sent it out yet" %>
+      <%= f.radio_button :purchase_status, "purchased" %>
+      <%= f.label :purchase_status_sent, "I have already purchased and sent this item" %>
+      <%= f.radio_button :purchase_status, "sent" %>
+
+      <%= f.hidden_field :giver_id, value: current_user.id %>
+      <%= f.hidden_field :year, value: Time.christmas_year %>
+
+      <%= f.submit "Give gift", class: "btn btn-primary" %>
+      <%= link_to "Cancel", friend_path(id: current_user.id) %>
+    <% end %>
+  </div>
+  <script type="text/javascript">
+  var $url_arr = window.location.href.split("/");
+  var $root_url = $url_arr[0] + "//" + $url_arr[2];
+  $("select#gift_recipient_id").change(function(){
+    var full_url = $root_url + "/friend_wishes_ajax" + "/" + $("select#gift_recipient_id option:selected:first").val() + ".json";
+    $('select#gift_wish_id option:gt(0)').remove();
+    $.getJSON( full_url, function( data ) {
+      $.each( data, function( ind, val ) {
+        $("select#gift_wish_id").append($("<option></option>")
+          .attr("value", val["id"]).text(val["title"]));
+      });
+    });
+  });
+  </script>
+</div>
