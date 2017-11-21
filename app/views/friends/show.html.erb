@@ -23,7 +23,9 @@
   </tbody>
 </table>
 
-<h2><%= link_to "All gifts that #{@friend.name} is receiving", friend_gifts_path(@friend) %>
+<% unless @friend == current_user %>
+  <h2><%= link_to "All gifts that #{@friend.name} is receiving", friend_gifts_path(@friend) %>
+<% end %>
 
 <br>
 <h2>Generation</h2>
@@ -32,5 +34,6 @@
 <% if @friend.id == current_user.id %>
   <%= link_to "Add gift to wishlist", new_wish_path %>
 <% else %>
-  <%= link_to "Give this person a gift", new_gift_path %>
+  <%= link_to "#{@friend.name}'s wishlist", friend_wishes_path(@friend) %>
+  <%= link_to "Give this person a gift", new_friend_gift_path(@friend) %>
 <% end %>
