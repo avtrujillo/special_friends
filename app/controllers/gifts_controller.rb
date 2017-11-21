@@ -18,10 +18,10 @@ class GiftsController < ApplicationController
       @friend = Friend.find_by(id: params[:friend_id])
       @wish = Wish.find_by(id: params[:wish_id])
       @receiving_gifts = Gift.where(recipient: @friend, year: Time.christmas_year).reject do |f|
-        f.recipient_id == @current_user.id
+        f.recipient_id == current_user.id
       end
       @giving_gifts = Gift.where(giver: @friend, year: Time.christmas_year).reject do |f|
-        f.recipient_id == @current_user.id
+        f.recipient_id == current_user.id
       end
       render 'friend_gifts' and return # to do: make this
     else
@@ -37,16 +37,16 @@ class GiftsController < ApplicationController
     if @wish && @recipient && @wish.friend != @recipient
       render status: 404, file: "#{Rails.root}/public/404.html" and return
     end
-    @giver = @current_user
+    @giver = current_user
   end
 
   def create
     @gift = Gift.new(gift_params)
-    if (@gift.recipient != @current_user) && @gift.save
+    if (@gift.recipient != current_user) && @gift.save
       flash[:success] = 'Gift saved'
       redirect_to Friend.find_by(id: @gift.recipient)
       # to do: customize this by the incoming url
-    elsif @gift.recipient == @current_user
+    elsif @gift.recipient == current_user
       flash[:danger] = "You can't give a gift to yourself"
       render 'give'
       # to do: customize this by the incoming url
@@ -59,7 +59,7 @@ class GiftsController < ApplicationController
 
   def edit
     @gift = Gift.find(params[:gift_id])
-    unless @gift.giver == @current_user
+    unless @gift.giver == current_user
       flash[:danger] = 'You can only edit gifts that you are giving'
       redirect_to(@gift)
       # to do: customize this by the incoming url
@@ -85,7 +85,7 @@ class GiftsController < ApplicationController
       render status: 404, file: "#{Rails.root}/public/404.html"
       return
     end
-    if @gift.giver == @current_user
+    if @gift.giver == current_user
      if @gift.destroy
        flash[:success] = "Gift deleted"
      else
@@ -94,7 +94,7 @@ class GiftsController < ApplicationController
    else
      flash[:danger] = "You may only delete gifts that you are giving"
    end
-   redirect_to(@current_user) # to do: customize this by the incoming url
+   redirect_to(current_user) # to do: customize this by the incoming url
   end
 
   def from_to
@@ -105,9 +105,6 @@ class GiftsController < ApplicationController
     else
       @giver = Friend.find_by(id: params[:giver_id])
       @recipient_id = Friend.find_by(id: params[:recipient_id])
-      @gifts = Gift.where(giver_id: params[:giver_id], recipient_id: params[:recipient_id])
-      @foo = params[:recipient_id]
-      @bar = current_user.id.to_i
       render 'index' and return
     end
   end
@@ -115,7 +112,7 @@ class GiftsController < ApplicationController
   private
 
     def gift_params
-      params.require(:gift).permit(:title, :description, :wish_id,
+      params.require(:gift).permit(:title, :description, :wish_id, :year,
         :recipient_id, :purchase_status, :giver_id)
     end
 
