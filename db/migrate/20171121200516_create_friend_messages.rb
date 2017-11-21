@@ -6,6 +6,7 @@ class CreateFriendMessages < ActiveRecord::Migration[5.1]
       t.integer :recipient_id
       t.text    :content
       t.boolean :read?
+      t.integer :year
 
       t.timestamps
     end

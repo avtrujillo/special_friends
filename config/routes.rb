@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   get 'friend_wishes_ajax/:id', to: 'wishes#friend_wishes_ajax'
 
+  get 'new_message_to_recipient', to: 'friend_messages#new_message_to_recipient'
+  get 'new_message_to_giver',     to: 'friend_messages#new_message_to_giver'
+
   resources :generations, only: [:show, :index]
 
   resources :gifts

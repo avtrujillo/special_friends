@@ -11,22 +11,11 @@
     </div>
   <% end %>
 
-
   <%= form.hidden_field :friend_match_id,
-    value: (sending_as == :giver ? current_user.giver_match : current_user. recipient_match) %>
-
-
-  <div class="field">
-    <%= form.hidden_field :sender_id, value: current_user.id %>
-  </div>
+    value: (sending_as == :giver ? current_user.giver_match.id : current_user.recipient_match.id) %>
 
   <div class="field">
-    <%= form.label :recipient_id %>
-    <%= form.number_field :recipient_id, id: :friend_message_recipient_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
+    <%= form.label :content, "Your message" %>
     <%= form.text_area :content, id: :friend_message_content %>
   </div>
 

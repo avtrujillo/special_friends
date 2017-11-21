@@ -21,16 +21,32 @@ class FriendMessagesController < ApplicationController
   # GET /friend_messages/1.json
   def show
     @friend_message = FriendMessage.find_by(id: params[:id])
+    unless [@friend_message.sender_id, @friend_message.recipient_id].include?(current_user.id)
+      render status: 403, file: "#{Rails.root}/public/403.html" and return
+    end
   end
 
   # GET /friend_messages/new
-  def new
-    @friend_message = FriendMessage.new
+  def new_message_to_recipient
+    @friend_message = FriendMessage.new(sender_id: current_user.id,
+      recipient_id: current_user.recipient.id,
+      recipient_match_id: current_user.recipient_match.id)
+    render 'new'
+  end
+
+  def new_message_to_giver
+    @friend_message = FriendMessage.new(sender_id: current_user.id,
+      recipient_id: current_user.giver.id,
+      friend_match_id: current_user.giver_match.id)
+    render 'new'
   end
 
   # GET /friend_messages/1/edit
   def edit
     @friend_message = FriendMessage.find_by(id: params[:id])
+    unless [@friend_message.sender_id, @friend_message.recipient_id].include?(current_user.id)
+      render status: 403, file: "#{Rails.root}/public/403.html" and return
+    end
   end
 
   # POST /friend_messages
@@ -60,16 +76,6 @@ class FriendMessagesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @friend_message.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /friend_messages/1
-  # DELETE /friend_messages/1.json
-  def destroy
-    @friend_message.destroy
-    respond_to do |format|
-      format.html { redirect_to friend_messages_url, notice: 'Friend message was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
