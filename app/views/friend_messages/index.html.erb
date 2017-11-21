@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Friend Messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Friend match</th>
+      <th>Sender</th>
+      <th>Recipient</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @friend_messages.each do |friend_message| %>
+      <tr>
+        <td><%= friend_message.friend_match_id %></td>
+        <td><%= friend_message.sender_id %></td>
+        <td><%= friend_message.recipient_id %></td>
+        <td><%= friend_message.content %></td>
+        <td><%= link_to 'Show', friend_message %></td>
+        <td><%= link_to 'Edit', edit_friend_message_path(friend_message) %></td>
+        <td><%= link_to 'Destroy', friend_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Friend Message', new_friend_message_path %>

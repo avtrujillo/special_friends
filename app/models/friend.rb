@@ -9,7 +9,18 @@ class Friend < ApplicationRecord
   has_many  :given_gifts, foreign_key: :giver_id, class_name: 'Gift'
   has_many  :wishes
 
+  has_many  :received_messages, foreign_key: :recipient_id, class_name: "FriendMessage"
+  has_many  :sent_messages, foreign_key: :sender_id, class_name: 'FriendMessage'
+
   belongs_to  :generation
+
+  def messages
+    received_messages + sent_messages
+  end
+
+  def unread_messages
+    messages.reject(&:read?)
+  end
 
   def forbidden_matches
     ForbiddenMatch.where("friend_1_id = ? OR friend_2_id = ?", self.id, self.id)

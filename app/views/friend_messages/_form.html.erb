@@ -1,0 +1,37 @@
+<%= form_with(model: friend_message, local: true) do |form| %>
+  <% if friend_message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(friend_message.errors.count, "error") %> prohibited this friend_message from being saved:</h2>
+
+      <ul>
+      <% friend_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :friend_match_id %>
+    <%= form.number_field :friend_match_id, id: :friend_message_friend_match_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sender_id %>
+    <%= form.number_field :sender_id, id: :friend_message_sender_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recipient_id %>
+    <%= form.number_field :recipient_id, id: :friend_message_recipient_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :friend_message_content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
