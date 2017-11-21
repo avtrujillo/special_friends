@@ -17,7 +17,7 @@
       <% end %>
       <td colspan="3"><%= wish.description %></td>
       <% if current_user == wish.friend %>
-        <td colspan="3">You'll just have to wait until Christmas!</td>
+        <td colspan="3">You'll just have to wait until Christmas to find out!</td>
       <% elsif wish.gifts.any? %>
         <td colspan="3"><%= render partial: 'gift_title_links', locals: {wish: wish} %></td>
       <% else %>
