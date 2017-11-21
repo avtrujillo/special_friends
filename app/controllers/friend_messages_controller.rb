@@ -23,7 +23,7 @@ class FriendMessagesController < ApplicationController
     if sender == current_user
       'you'
     elsif sender == current_user.giver
-      "your giver #{current_user.giver.name}"
+      "your giver"
     elsif sender == current_user.recipient
       "your recipient #{current_user.recipient.name}"
     else
@@ -35,7 +35,7 @@ class FriendMessagesController < ApplicationController
     if recipient == current_user
       'you'
     elsif recipient == current_user.giver
-      "your giver #{current_user.giver.name}"
+      "your giver"
     elsif recipient == current_user.recipient
       "your recipient #{current_user.recipient.name}"
     else

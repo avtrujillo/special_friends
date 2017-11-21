@@ -2,9 +2,13 @@
 
 <p>
   <% if @index_type == :giver %>
-    <h1>Messages between you and your giver</h1>
+    <h1><%= "Messages between #{@friend_messages.first.sender_name} and #{@friend_messages.first.recipient_name}" %></h1>
+  <% elsif @index_type == :recipient %>
+    <h1><%= "Messages between #{@friend_messages.first.sender_name} and #{@friend_messages.first.recipient_name}" %></h1>
+
   <% else %>
-    <h1>Messages between you and your recipient</h1>
+    <h1>All Messages<h1>
+    <%= link_to "Messages between you and your recipient ##{current_user.recipient.name}"
   <% end %>
 </p>
 
@@ -13,7 +17,6 @@
 <table>
   <thead>
     <tr>
-      <th>Friend match</th>
       <th>Sender</th>
       <th>Recipient</th>
       <th>Content</th>
@@ -24,13 +27,10 @@
   <tbody>
     <% @friend_messages.each do |friend_message| %>
       <tr>
-        <td><%= friend_message.friend_match_id %></td>
-        <td><%= friend_message.sender_id %></td>
-        <td><%= friend_message.recipient_id %></td>
+        <td><%= friend_message.sender_name %></td>
+        <td><%= friend_message.recipient_name %></td>
         <td><%= friend_message.content %></td>
-        <td><%= link_to 'Show', friend_message %></td>
-        <td><%= link_to 'Edit', edit_friend_message_path(friend_message) %></td>
-        <td><%= link_to 'Destroy', friend_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'View/reply', friend_message %></td>
       </tr>
     <% end %>
   </tbody>
