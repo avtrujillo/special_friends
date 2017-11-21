@@ -3,12 +3,16 @@
 <p>
   <% if @index_type == :giver %>
     <h1><%= "Messages between #{@friend_messages.first.sender_name} and #{@friend_messages.first.recipient_name}" %></h1>
+    <%= link_to "Messages between you and your recipient #{current_user.recipient.name}", recipient_messages_path %>
+    <%= link_to 'All messages', messages_path %>
   <% elsif @index_type == :recipient %>
     <h1><%= "Messages between #{@friend_messages.first.sender_name} and #{@friend_messages.first.recipient_name}" %></h1>
-
+    <%= link_to 'Messages between you and your giver', giver_messages_path %>
+    <%= link_to 'All messages', messages_path %>
   <% else %>
     <h1>All Messages<h1>
-    <%= link_to "Messages between you and your recipient ##{current_user.recipient.name}"
+    <%= link_to "Messages between you and your recipient #{current_user.recipient.name}", recipient_messages_path %>
+    <%= link_to 'Messages between you and your giver', giver_messages_path %>
   <% end %>
 </p>
 
@@ -38,4 +42,5 @@
 
 <br>
 
-<%= link_to 'New Friend Message', new_friend_message_path %>
+<%= link_to 'New message to your giver', 'new_message_to_giver' %>
+<%= link_to "New message to your recipient #{current_user.recipient.name}", 'new_message_to_recipient' %>
