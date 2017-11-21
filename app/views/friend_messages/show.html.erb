@@ -1,18 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Friend match:</strong>
-  <%= @friend_message.friend_match_id %>
-</p>
-
-<p>
-  <strong>Sender:</strong>
-  <%= @friend_message.sender_id %>
-</p>
-
-<p>
-  <strong>Recipient:</strong>
-  <%= @friend_message.recipient_id %>
+  <% if @friend_message.sender == current_user && @friend_message.recipient == current_user.giver %>
+    <h1>A message from you to your giver</h1>
+    <% image_url '/images/boy_whispering_to_anon.png' %>
+  <% elsif @friend_message.sender == current_user && @friend_message.recipient == current_user.recipient %>
+    <h1><%= "A message from you to your recipient #{current_user.recipient.name}" %></h1>
+    <% image_url '/images/anon_whispering_to_girl.png' %>
+  <% elsif @friend_message.recipient == current_user.recipient %>
+    <h1><%= "A message from your recipient #{current_user.recipient.name} to you" %></h1>
+    <% image_url '/images/boy_whispering_to_anon.png' %>
+  <% else %>
+    <h1>A message from your giver to you</h1>
+    <% image_url '/images/anon_whispering_to_girl.png' %>
+  <% end %>
 </p>
 
 <p>
@@ -20,5 +21,4 @@
   <%= @friend_message.content %>
 </p>
 
-<%= link_to 'Edit', edit_friend_message_path(@friend_message) %> |
 <%= link_to 'Back', friend_messages_path %>

@@ -1,5 +1,20 @@
-<h1>New Friend Message</h1>
+<% if @friend_message.match_giver == current_user %>
+  <h1>New message to your giver</h1>
+  <% image_url '/images/boy_whispering_to_anon.png' %>
+<% else %>
+  <h1>New message to your recipient</h1>
+  <% image_url '/images/anon_whispering_to_girl.png' %>
+  <h2> Remember not to tell them who you are!!!!!</h2>
+<% end %>
 
 <%= render 'form', friend_message: @friend_message %>
 
 <%= link_to 'Back', friend_messages_path %>
+
+<% if @friend_message.match_giver == current_user %>
+  <% link_to 'send a message to your recipient instead' 'new_message_to_recipient' %>
+  <% image_url '/images/anon_whispering_to_girl.png' %>
+<% else %>
+  <% link_to 'send a message to your giver instead' 'new_message_to_giver' %>
+  <% image_url '/images/boy_whispering_to_anon.png' %>
+<% end %>

@@ -7,14 +7,40 @@ class FriendMessagesController < ApplicationController
     @friend_messages = current_user.messages
   end
 
-  def giver_messages
+  def giver_index
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
       friend_match_id: current_user.giver_match.id)
+    @index_type = :giver
   end
 
-  def recipient_messages # NOT the same thing as recieved messages!
+  def recipient_index # NOT the same thing as recieved messages!
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
       friend_match_id: current_user.recipient_match.id)
+    @index_type = :recipient
+  end
+
+  def sender_name
+    if sender == current_user
+      'you'
+    elsif sender == current_user.giver
+      "your giver #{current_user.giver.name}"
+    elsif sender == current_user.recipient
+      "your recipient #{current_user.recipient.name}"
+    else
+      'do not read'
+    end
+  end
+
+  def recipient_name
+    if recipient == current_user
+      'you'
+    elsif recipient == current_user.giver
+      "your giver #{current_user.giver.name}"
+    elsif recipient == current_user.recipient
+      "your recipient #{current_user.recipient.name}"
+    else
+      'do not read'
+    end
   end
 
   # GET /friend_messages/1

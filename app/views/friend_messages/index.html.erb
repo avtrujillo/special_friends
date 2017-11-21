@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <% if @index_type == :giver %>
+    <h1>Messages between you and your giver</h1>
+  <% else %>
+    <h1>Messages between you and your recipient</h1>
+  <% end %>
+</p>
+
 <h1>Friend Messages</h1>
 
 <table>
