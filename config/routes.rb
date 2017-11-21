@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'my_generation',      to: 'generations#my_gen'
   get 'user',               to: 'friends#user',       as: 'user'
 
-  get 'gifts/giver/:giver_id/recipient/:recipient_id', to: 'gifts#from_to'
+  get 'gifts/giver/:giver_id/recipient/:recipient_id', to: 'gifts#from_to', as: 'from_to'
 
   get 'friend_wishes_ajax/:id', to: 'wishes#friend_wishes_ajax'
 
