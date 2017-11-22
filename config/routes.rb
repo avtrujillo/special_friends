@@ -31,7 +31,9 @@ Rails.application.routes.draw do
 
   resources :gifts
 
-  resources :wishes
+  resources :wishes do
+    resources :gifts, only: [:index, :new]
+  end
 
   resources :friends, only: [:show, :index] do
     member do
@@ -39,8 +41,8 @@ Rails.application.routes.draw do
       get 'giving_gifts',    to: 'friends#giving'
       get 'receiving_gifts', to: 'friends#receiving'
     end
-    resources :gifts,   only: [:show, :index, :new]
-    resources :wishes,  only: [:show, :index]
+    resources :gifts,   only: [:index, :new]
+    resources :wishes,  only: [:index]
     # '/friends/gifts/index' will list the gifts that a friend is receiving
   end
 
