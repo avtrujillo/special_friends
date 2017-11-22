@@ -100,7 +100,7 @@ class GiftsController < ApplicationController
   def from_to
     if !(params[:giver_id] && params[:recipient_id])
       render status: 404, file: "#{Rails.root}/public/404.html" and return
-    elsif params[:recipient_id] == current_user.id.to_i
+    elsif params[:recipient_id].to_i == current_user.id.to_i
       render status: 403, file: "#{Rails.root}/public/403.html" and return
     else
       @giver = Friend.find_by(id: params[:giver_id])

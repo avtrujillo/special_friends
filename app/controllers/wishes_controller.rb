@@ -53,7 +53,7 @@ class WishesController < ApplicationController
   end
 
   def friend_unfulfilled
-    if params[:friend_id] == current_user.id
+    if params[:friend_id].to_i == current_user.id
       redirect_to all_friend_wishes_path(current_user)
     end
     @friend = Friend.find_by(id: params[:friend_id])
