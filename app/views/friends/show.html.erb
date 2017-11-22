@@ -1,7 +1,9 @@
 <% provide(:title, @friend.name) %>
 
+<h1><%= @friend.name %></h1>
+
 <% if current_user.recipient == @friend %>
-  <h1>This person is your recipient</h1>
+  <h3>This person is your recipient</h3>
   <%= link_to 'Send them a message', 'new_message_to_recipient' %>
 <% end %>
 <h2>Wishes</h2>

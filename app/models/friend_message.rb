@@ -3,6 +3,8 @@ class FriendMessage < ApplicationRecord
   belongs_to :recipient, foreign_key: 'recipient_id', class_name: 'Friend'
   belongs_to :friend_match
 
+  before_validation :set_year, on: [:create, :save]
+
   def match_giver
     friend_match.giver
   end
@@ -33,6 +35,12 @@ class FriendMessage < ApplicationRecord
     else
       'do not read'
     end
+  end
+
+  private
+
+  def set_year
+    self.year = Time.christmas_year
   end
 
 end
