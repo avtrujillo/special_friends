@@ -25,24 +25,34 @@ Rails.application.routes.draw do
   get 'messages_as_recipient',    to: 'friend_messages#messages_as_recipient'
   get 'unread_messages',          to: 'friend_messages#unread'
 
+  get 'wishes/unfulfilled'        to: 'wishes#unfulfilled'
+
   resources :friend_messages, only: [:show, :index]
 
   resources :generations, only: [:show, :index]
 
   resources :gifts
 
+  get 'wishes/unfulfilled',  to: 'wishes#unfulfilled', as: 'wishes'
+  get 'wishes/all',    to: 'wishes#all', as: 'all_wishes'
+
   resources :wishes do
     resources :gifts, only: [:index, :new]
   end
 
+  # the index method for the wishes controller shows only unfulfilled wishes
+  # the all method shows all wishes
+  # the same applies for friends/:friend_id/wishes/[index/all]
+
   resources :friends, only: [:show, :index] do
     member do
-      get 'generation',      to: "friends#generation"
-      get 'giving_gifts',    to: 'friends#giving'
-      get 'receiving_gifts', to: 'friends#receiving'
+      get 'generation',         to: "friends#generation"
+      get 'giving_gifts',       to: 'friends#giving'
+      get 'receiving_gifts',    to: 'friends#receiving'
+      get 'wishes/unfulfilled', to:  'wishes#unfulfilled_friend', as: 'friend_wishes'
+      get 'wishes/all',         to: 'wishes#all_friend', as: 'all_friend_wishes'
     end
     resources :gifts,   only: [:index, :new]
-    resources :wishes,  only: [:index]
     # '/friends/gifts/index' will list the gifts that a friend is receiving
   end
 

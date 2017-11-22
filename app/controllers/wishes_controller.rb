@@ -37,14 +37,37 @@ class WishesController < ApplicationController
 
   def show
     @wish = Wish.find_by(id: params[:id])
-    if params[:friend_id] && params[:friend_id] != @wish.friend_id
-      render status: 404, file: "#{Rails.root}/public/404.html" and return
-    end
   end
 
-  def index
-    @friend = Friend.find_by(id: params[:friend_id]) if params[:friend_id]
-    @wishes = (@friend) ? Wish.where(friend_id: @friend.id) : Wish.all
+  def unfulfilled
+    @wishes = Wish.where(year: Time.christmas_year)
+    @wishes.reject! { |wish| wish.fulfilled? || wish.friend_id == current_user.id }
+    @index_type = :unfulfilled
+    render 'index'
+  end
+
+  def all
+    @wishes = Wish.where(year: Time.christmas_year)
+    @index_type = :all
+    render 'index'
+  end
+
+  def friend_unfulfilled
+    if params[:friend_id] == current_user.id
+      redirect_to all_friend_wishes_path(current_user)
+    end
+    @friend = Friend.find_by(id: params[:friend_id])
+    @wishes = Wish.where(friend_id: params[:friend_id], year: Time.christmas_year)
+    @wishes.reject! { |wish| wish.fulfilled? }
+    @index_type = :unfulfilled
+    render 'index'
+  end
+
+  def friend_all
+    @friend = Friend.find_by(friend_id: params[:friend_id])
+    @wishes = Wish.where(friend_id: params[:friend_id], year: Time.christmas_year)
+    @index_type = :all
+    render 'index'
   end
 
   def destroy

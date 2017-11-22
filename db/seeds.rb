@@ -13,10 +13,10 @@ olivia = Friend.create(name: "Olivia", generation_id: millenials.id)
 alex = Friend.create(name: "Alex", generation_id: millenials.id)
 jesse = Friend.create(name: "Jesse", generation_id: millenials.id)
 bekah = Friend.create(name: "Bekah", generation_id: millenials.id)
-lindsay = Friend.create(name: "Lindsay", generation_id: millenials.id)
+lindsey = Friend.create(name: "Lindsey", generation_id: millenials.id)
 
 ForbiddenMatch.create(friend_1: alex, friend_2: jesse)
-ForbiddenMatch.create(friend_1: olivia, friend_2: lindsay)
+ForbiddenMatch.create(friend_1: olivia, friend_2: lindsey)
 
 katie = Friend.create(name: "Katie", generation_id: genx_boomers.id)
 mike = Friend.create(name: "Mike", generation_id: genx_boomers.id)
