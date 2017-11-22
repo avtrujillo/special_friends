@@ -1,25 +1,26 @@
 class FriendMailer < ApplicationMailer
   def fm_notification(fm)
-    mg_client = Mailgun::Client.new ENV['api_key']
+    mg_client = Mailgun::Client.new Rails.application.secrets.private_mailgun_api
     message_params = notification_params(fm)
-    mg_client.send_message ENV['domain'], message_params
+    mg_client.send_message Rails.application.secrets.mailgun_domain, message_params
   end
 
   def test_email
-    mg_client = Mailgun::Client.new ENV['api_key']
-    {
+    mg_client = Mailgun::Client.new Rails.application.secrets.private_mailgun_api
+    message_params = {
       from: "messenger_bot@#{Rails.application.secrets.mailgun_domain}",
       to: Rails.application.secrets.my_email,
       subject: "mailer test",
       text: "Test was a success"
     }
+    mg_client.send_message Rails.application.secrets.mailgun_domain, message_params
   end
 
   private
 
   def notification_params(fm)
     {
-      from: "messenger_bot@#{Rails.application.secrets.mailgun_domain}",
+      from: "special_friends_messenger@#{Rails.application.secrets.mailgun_domain}",
       to: fm.recipient.email,
       subject: notification_subject(fm),
       text: notification_text(fm)
