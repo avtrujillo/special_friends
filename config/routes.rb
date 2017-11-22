@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :friend_messages
   root 'sessions#new'
 
   get 'error/:error_id', to: 'htmlerrors#error_status_page'

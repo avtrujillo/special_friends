@@ -3,16 +3,16 @@
 <p>
   <% if @friend_message.sender == current_user && @friend_message.recipient == current_user.giver %>
     <h1>A message from you to your giver</h1>
-    <% image_url '/images/boy_whispering_to_anon.png' %>
+    <%= image_tag 'boy_whispering_to_anon.png' %>
   <% elsif @friend_message.sender == current_user && @friend_message.recipient == current_user.recipient %>
     <h1><%= "A message from you to your recipient #{current_user.recipient.name}" %></h1>
-    <% image_url '/images/anon_whispering_to_girl.png' %>
+    <%= image_tag 'anon_whispering_to_girl.png' %>
   <% elsif @friend_message.recipient == current_user.recipient %>
     <h1><%= "A message from your recipient #{current_user.recipient.name} to you" %></h1>
-    <% image_url '/images/boy_whispering_to_anon.png' %>
+    <%= image_tag 'boy_whispering_to_anon.png' %>
   <% else %>
     <h1>A message from your giver to you</h1>
-    <% image_url '/images/anon_whispering_to_girl.png' %>
+    <%= image_tag 'anon_whispering_to_girl.png' %>
   <% end %>
 </p>
 
