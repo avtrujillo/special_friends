@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get 'new_message_to_giver',     to: 'friend_messages#new_message_to_giver'
   get 'messages_as_giver',        to: 'friend_messages#messages_as_giver'
   get 'messages_as_recipient',    to: 'friend_messages#messages_as_recipient'
-  get 'unread_message'            to: 'friend_messages#unread'
+  get 'unread_messages',          to: 'friend_messages#unread'
 
   resources :friend_messages, only: [:show, :index]
 

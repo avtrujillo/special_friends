@@ -4,14 +4,15 @@ class FriendMessagesController < ApplicationController
   # GET /friend_messages
   # GET /friend_messages.json
   def index
-    @friend_messages = current_user.messages
+    @friend_messages = current_user.messages.to_a.sort_by(&:created_at).reverse
     @index_type = nil
     mark_messages_as_read(@friend_messages)
   end
 
   def messages_as_giver
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
-      friend_match_id: current_user.giver_match.id)
+      friend_match_id: current_user.giver_match.id).to_a
+    @friend_messages.sort_by!(&:created_at).reverse!
     @index_type = :as_giver
     @giver = 'you'
     @recipient = "your recipient #{current_user.recipient.name}"
@@ -21,7 +22,8 @@ class FriendMessagesController < ApplicationController
 
   def messages_as_recipient # NOT the same thing as recieved messages!
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
-      friend_match_id: current_user.recipient_match.id)
+      friend_match_id: current_user.recipient_match.id).to_a
+    @friend_messages.sort_by!(&:created_at).reverse!
     @index_type = :as_recipient
     render 'index'
     @giver = 'your giver'
@@ -30,7 +32,8 @@ class FriendMessagesController < ApplicationController
   end
 
   def unread
-    @friend_messages = FriendMessage.where(recipient_id: current_user.id, read?: false)
+    @friend_messages = FriendMessage.where(recipient_id: current_user.id, read?: false).to_a
+    @friend_messages.sort_by!(&:created_at).reverse!
     @index_type = :unread
     mark_messages_as_read(@friend_messages)
   end
@@ -90,6 +93,6 @@ class FriendMessagesController < ApplicationController
     end
 
     def mark_messages_as_read(messages)
-      messages.each.update_attribute(:read?, true)
+      messages.each { |m| m.update_attribute(:read?, true) }
     end
 end

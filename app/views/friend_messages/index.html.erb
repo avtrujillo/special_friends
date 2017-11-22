@@ -21,23 +21,23 @@
   <% end %>
 </p>
 
-<table>
+<table border="5">
   <thead>
     <tr>
-      <th colspan="2">Sender</th>
-      <th colspan="2">Recipient</th>
-      <th colspan="5">Content</th>
-      <th colspan="2"></th>
+      <th colspan="1">Sender</th>
+      <th colspan="1">Recipient</th>
+      <th colspan="3">Content</th>
+      <th colspan="1"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @friend_messages.each do |friend_message| %>
       <tr>
-        <td colspan="2"><%= friend_message.sender_name %></td>
-        <td colspan="2"><%= friend_message.recipient_name %></td>
-        <td colspan="5"><%= friend_message.content %></td>
-        <td colspan="2"><%= link_to 'View/reply', friend_message %></td>
+        <td colspan="1"><%= friend_message.sender_name(current_user) %></td>
+        <td colspan="1"><%= friend_message.recipient_name(current_user) %></td>
+        <td colspan="3"><%= friend_message.content %></td>
+        <td colspan="1"><%= link_to 'View/reply', friend_message %></td>
       </tr>
     <% end %>
   </tbody>

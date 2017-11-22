@@ -11,7 +11,7 @@ class FriendMessage < ApplicationRecord
     friend_match.recipient
   end
 
-  def sender_name
+  def sender_name(current_user)
     if sender == current_user
       'you'
     elsif sender == current_user.giver
@@ -23,7 +23,7 @@ class FriendMessage < ApplicationRecord
     end
   end
 
-  def recipient_name
+  def recipient_name(current_user)
     if recipient == current_user
       'you'
     elsif recipient == current_user.giver
@@ -34,5 +34,5 @@ class FriendMessage < ApplicationRecord
       'do not read'
     end
   end
-  
+
 end

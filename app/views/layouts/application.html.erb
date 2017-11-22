@@ -15,7 +15,7 @@
         <div class="container">
           <nav>
             <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to "Messages (#{FriendMessage.where(recipient_id: current_user.id, read?: false).count} unread)" %></li>
+              <li><%= link_to "Messages (#{FriendMessage.where(recipient_id: current_user.id, read?: false).count} unread)", friend_messages_path %></li>
               <li><%= link_to "All Friends", friends_path %></li>
               <li><%= link_to "All Wishes", wishes_path %></li>
               <li><%= link_to "My Generation", my_generation_path %></li>
