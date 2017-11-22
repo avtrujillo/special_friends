@@ -25,8 +25,6 @@ Rails.application.routes.draw do
   get 'messages_as_recipient',    to: 'friend_messages#messages_as_recipient'
   get 'unread_messages',          to: 'friend_messages#unread'
 
-  get 'wishes/unfulfilled'        to: 'wishes#unfulfilled'
-
   resources :friend_messages, only: [:show, :index]
 
   resources :generations, only: [:show, :index]
