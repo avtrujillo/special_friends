@@ -7,6 +7,7 @@ class CreateFriendMessages < ActiveRecord::Migration[5.1]
       t.text    :content
       t.boolean :read?
       t.integer :year
+      t.integer :mailgun_message_id
 
       t.timestamps
     end

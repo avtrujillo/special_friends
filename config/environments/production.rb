@@ -85,4 +85,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.force_ssl = true
+
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+		api_key: "Rails.application.secrets.private_mailgun_api",
+		domain: Rails.application.secrets.mailgun_domain
+  }
 end

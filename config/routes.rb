@@ -22,10 +22,10 @@ Rails.application.routes.draw do
 
   get 'new_message_to_recipient', to: 'friend_messages#new_message_to_recipient'
   get 'new_message_to_giver',     to: 'friend_messages#new_message_to_giver'
-  get 'giver_messages',           to: 'friend_messages#giver_index'
-  get 'recipient_messages',       to: 'friend_messages#recipient_index'
+  get 'messages_as_giver',           to: 'friend_messages#messages_as_giver'
+  get 'messages_as_recipient',       to: 'friend_messages#messages_as_recipient'
 
-  resources :friend_messages only: [:show, :index]
+  resources :friend_messages, only: [:show, :index]
 
   resources :generations, only: [:show, :index]
 

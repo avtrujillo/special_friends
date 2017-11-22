@@ -8,14 +8,14 @@ class FriendMessagesController < ApplicationController
     @index_type = nil
   end
 
-  def giver_index
+  def messages_as_giver
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
       friend_match_id: current_user.giver_match.id)
     @index_type = :giver
     render 'index'
   end
 
-  def recipient_index # NOT the same thing as recieved messages!
+  def messages_as_recipient # NOT the same thing as recieved messages!
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
       friend_match_id: current_user.recipient_match.id)
     @index_type = :recipient
@@ -53,6 +53,7 @@ class FriendMessagesController < ApplicationController
 
     respond_to do |format|
       if @friend_message.save
+        FriendMailer.fm_notification(@friend_message)
         format.html { redirect_to @friend_message, notice: 'Friend message was successfully created.' }
         format.json { render :show, status: :created, location: @friend_message }
       else
