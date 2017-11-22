@@ -21,6 +21,6 @@
   <%= @friend_message.content %>
 </p>
 
-<%= link_to 'Reply', (@friend_messages.friend_match == current_user.giver_match ? 'new_message_to_recipient' : 'new_message_to_giver') %>
+<%= link_to 'Reply', (@friend_message.friend_match == current_user.giver_match ? 'new_message_to_recipient' : 'new_message_to_giver') %>
 
 <%= link_to 'Back', friend_messages_path %>

@@ -6,20 +6,33 @@ class FriendMessagesController < ApplicationController
   def index
     @friend_messages = current_user.messages
     @index_type = nil
+    mark_messages_as_read(@friend_messages)
   end
 
   def messages_as_giver
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
       friend_match_id: current_user.giver_match.id)
-    @index_type = :giver
+    @index_type = :as_giver
+    @giver = 'you'
+    @recipient = "your recipient #{current_user.recipient.name}"
     render 'index'
+    mark_messages_as_read(@friend_messages)
   end
 
   def messages_as_recipient # NOT the same thing as recieved messages!
     @friend_messages = FriendMessage.where(year: Time.christmas_year,
       friend_match_id: current_user.recipient_match.id)
-    @index_type = :recipient
+    @index_type = :as_recipient
     render 'index'
+    @giver = 'your giver'
+    @recipient = 'you'
+    mark_messages_as_read(@friend_messages)
+  end
+
+  def unread
+    @friend_messages = FriendMessage.where(recipient_id: current_user.id, read?: false)
+    @index_type = :unread
+    mark_messages_as_read(@friend_messages)
   end
 
   # GET /friend_messages/1
@@ -33,13 +46,15 @@ class FriendMessagesController < ApplicationController
 
   # GET /friend_messages/new
   def new_message_to_recipient
+    @sending_to = :recipient
     @friend_message = FriendMessage.new(sender_id: current_user.id,
       recipient_id: current_user.recipient.id,
-      recipient_match_id: current_user.recipient_match.id)
+      friend_match_id: current_user.recipient_match.id)
     render 'new'
   end
 
   def new_message_to_giver
+    @sending_to = :giver
     @friend_message = FriendMessage.new(sender_id: current_user.id,
       recipient_id: current_user.giver.id,
       friend_match_id: current_user.giver_match.id)
@@ -72,5 +87,9 @@ class FriendMessagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def friend_message_params
       params.require(:friend_message).permit(:friend_match_id, :sender_id, :recipient_id, :content)
+    end
+
+    def mark_messages_as_read(messages)
+      messages.each.update_attribute(:read?, true)
     end
 end

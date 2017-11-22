@@ -1,7 +1,8 @@
 <% provide(:title, @friend.name) %>
 
-<% if current_user.recipient == @friend.name %>
-  <h1>This person is your special friend</h1>
+<% if current_user.recipient == @friend %>
+  <h1>This person is your recipient</h1>
+  <%= link_to 'Send them a message', 'new_message_to_recipient' %>
 <% end %>
 <h2>Wishes</h2>
 <table border=5>
@@ -31,7 +32,7 @@
 <h2>Generation</h2>
 <%= link_to @friend.generation.name, generation_friend_path(@friend) %>
 <br>
-<% if @friend.id == current_user.id %>
+<% if @friend == current_user %>
   <%= link_to "Add gift to wishlist", new_wish_path %>
 <% else %>
   <%= link_to "#{@friend.name}'s wishlist", friend_wishes_path(@friend) %>

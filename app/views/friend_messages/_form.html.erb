@@ -12,7 +12,10 @@
   <% end %>
 
   <%= form.hidden_field :friend_match_id,
-    value: (sending_as == :giver ? current_user.giver_match.id : current_user.recipient_match.id) %>
+    value: (@sending_to == :recipient ? current_user.giver_match.id : current_user.recipient_match.id) %>
+  <%= form.hidden_field :sender_id, value: current_user.id %>
+  <%= form.hidden_field :recipient_id, value: @friend_message.recipient_id %>
+  <%= form.hidden_field :friend_match_id, value: @friend_message.friend_match_id %>
 
   <div class="field">
     <%= form.label :content, "Your message" %>
