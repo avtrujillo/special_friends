@@ -1,15 +1,17 @@
 <% provide(title: "Log in") %>
-<h1>Log in</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <h1>Special Friends</h1><br>
+
+    <h3>Log in</h3>
     <%= form_for(:session, url: login_path) do |f| %>
 
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form control' %>
 
       <%= f.label :password %>
-      <%= f.text_field :password, class: 'form control' %>
+      <%= f.password_field :password, class: 'form control' %>
 
       <%= f.submit "Log in", class: "btn btn-primary" %>
 

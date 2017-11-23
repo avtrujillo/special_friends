@@ -9,11 +9,11 @@ class SessionsController < ApplicationController
 
   def create
     user = Friend.find_by(name: params[:session][:name].capitalize)
-    if user && user.authenticate(params[:session][:passowrd])
+    if user && user.authenticate(params[:session][:password])
       log_in user
       redirect_to friend_path(user.id)
     else
-      flash.now[:danger] = 'Invalid username'
+      flash.now[:danger] = 'Invalid username or password'"
       render 'new'
     end
   end
