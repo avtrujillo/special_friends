@@ -1,3 +1,3 @@
 Mailgun.configure do |config|
-  config.api_key = Rails.application.secrets.private_mailgun_api
+  config.api_key = ENV['PRIVATE_MAILGUN_API']
 end
