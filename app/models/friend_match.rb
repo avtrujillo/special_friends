@@ -1,7 +1,7 @@
 class FriendMatch < ApplicationRecord
   belongs_to :giver, foreign_key: "giver_id", class_name: "Friend"
   belongs_to :recipient, foreign_key: "recipient_id", class_name: "Friend"
-  has_many :friend_messages, foreign_key: 'friend_match_id', class_name: 'FriendMessage'
+  has_many :messages, foreign_key: 'friend_match_id', class_name: 'FriendMessage'
   validates_uniqueness_of :giver_id,  scope: :year
   validates_uniqueness_of :recipient_id, scope: :year
   validates_associated  :giver

@@ -40,6 +40,7 @@ class WishesController < ApplicationController
   end
 
   def unfulfilled
+    byebug
     @wishes = Wish.where(year: Time.christmas_year).to_a
     @wishes.reject! { |wish| wish.fulfilled? || wish.friend_id == current_user.id }
     @index_type = :unfulfilled
@@ -47,7 +48,7 @@ class WishesController < ApplicationController
   end
 
   def all
-    @wishes = Wish.where(year: Time.christmas_year)
+    @wishes = Wish.where(year: Time.christmas_year).to_a
     @index_type = :all
     render 'index'
   end
@@ -65,7 +66,7 @@ class WishesController < ApplicationController
 
   def friend_all
     @friend = Friend.find_by(friend_id: params[:friend_id])
-    @wishes = Wish.where(friend_id: params[:friend_id], year: Time.christmas_year)
+    @wishes = Wish.where(friend_id: params[:friend_id], year: Time.christmas_year).to_a
     @index_type = :all
     render 'index'
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123163832) do
+ActiveRecord::Schema.define(version: 20171123225354) do
 
   create_table "forbidden_matches", force: :cascade do |t|
     t.integer "friend_1_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171123163832) do
     t.integer "mailgun_message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "sent?"
   end
 
   create_table "friends", force: :cascade do |t|

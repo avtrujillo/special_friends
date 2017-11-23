@@ -10,8 +10,8 @@ class FriendMessagesController < ApplicationController
   end
 
   def messages_as_giver
-    @friend_messages = current_user.giver_match.messages
-    @friend_messages.sort_by!(&:created_at).reverse!
+    @friend_messages = current_user.giver_match.messages.to_a
+    @friend_messages.to_a.sort_by!(&:created_at).reverse!
     @index_type = :as_giver
     @giver = 'you'
     @recipient = "your recipient #{current_user.recipient.name}"
@@ -20,7 +20,7 @@ class FriendMessagesController < ApplicationController
   end
 
   def messages_as_recipient # NOT the same thing as recieved messages!
-    @friend_messages = current_user.recipient_match.messages
+    @friend_messages = current_user.recipient_match.messages.to_a
     @friend_messages.sort_by!(&:created_at).reverse!
     @index_type = :as_recipient
     render 'index'
@@ -66,7 +66,6 @@ class FriendMessagesController < ApplicationController
   # POST /friend_messages.json
   def create
     @friend_message = FriendMessage.new(friend_message_params)
-
     respond_to do |format|
       if @friend_message.save
         format.html do
