@@ -10,8 +10,7 @@ class FriendMessagesController < ApplicationController
   end
 
   def messages_as_giver
-    @friend_messages = FriendMessage.where(year: Time.christmas_year,
-      friend_match_id: current_user.giver_match.id).to_a
+    @friend_messages = current_user.giver_match.messages
     @friend_messages.sort_by!(&:created_at).reverse!
     @index_type = :as_giver
     @giver = 'you'
@@ -21,8 +20,7 @@ class FriendMessagesController < ApplicationController
   end
 
   def messages_as_recipient # NOT the same thing as recieved messages!
-    @friend_messages = FriendMessage.where(year: Time.christmas_year,
-      friend_match_id: current_user.recipient_match.id).to_a
+    @friend_messages = current_user.recipient_match.messages
     @friend_messages.sort_by!(&:created_at).reverse!
     @index_type = :as_recipient
     render 'index'
@@ -52,7 +50,7 @@ class FriendMessagesController < ApplicationController
     @sending_to = :recipient
     @friend_message = FriendMessage.new(sender_id: current_user.id,
       recipient_id: current_user.recipient.id,
-      friend_match_id: current_user.recipient_match.id)
+      friend_match_id: current_user.giver_match.id)
     render 'new'
   end
 
@@ -60,7 +58,7 @@ class FriendMessagesController < ApplicationController
     @sending_to = :giver
     @friend_message = FriendMessage.new(sender_id: current_user.id,
       recipient_id: current_user.giver.id,
-      friend_match_id: current_user.giver_match.id)
+      friend_match_id: current_user.recipient_match.id)
     render 'new'
   end
 
