@@ -73,12 +73,12 @@ class FriendMailer < ApplicationMailer
   def notification_text(fm)
     if fm.recipient == fm.match_recipient
       'You have a new message from your giver.' +
-      "View it at #{Rails.root}/friend_messages/#{fm.id} or view your full" +
-      "correspondence at #{Rails.root}/messages_as_recipient."
+      "View it at #{ENV['DOMAIN']}/friend_messages/#{fm.id} or view your full" +
+      "correspondence at #{ENV['DOMAIN']}/messages_as_recipient."
     elsif fm.recipient == fm.match_giver
       "You have a new message from your recipient #{fm.match_recipient}." +
-      "View it at #{Rails.root}/friend_messages/#{fm.id} or view your full" +
-      "correspondence at #{Rails.root}/messages_as_giver."
+      "View it at #{ENV['DOMAIN']}/friend_messages/#{fm.id} or view your full" +
+      "correspondence at #{ENV['DOMAIN']}/messages_as_giver."
     else
       raise 'invalid recipient'
     end
