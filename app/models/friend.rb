@@ -14,6 +14,8 @@ class Friend < ApplicationRecord
 
   belongs_to  :generation
 
+  has_secure_password
+
   def messages
     received_messages + sent_messages
   end

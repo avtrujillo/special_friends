@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
   def create
     user = Friend.find_by(name: params[:session][:name].capitalize)
-    if user
+    if user && user.authenticate(params[:session][:passowrd])
       log_in user
       redirect_to friend_path(user.id)
     else
