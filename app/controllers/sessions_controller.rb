@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to friend_path(user.id)
     else
-      flash.now[:danger] = 'Invalid username or password'"
+      flash.now[:danger] = 'Invalid username or password'
       render 'new'
     end
   end
