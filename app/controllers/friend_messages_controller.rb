@@ -69,9 +69,14 @@ class FriendMessagesController < ApplicationController
 
     respond_to do |format|
       if @friend_message.save
-        FriendMailer.fm_notification(@friend_message)
-        format.html { redirect_to @friend_message, notice: 'Friend message was successfully created.' }
-        format.json { render :show, status: :created, location: @friend_message }
+        format.html do
+          FriendMailer.fm_notification(@friend_message)
+          redirect_to @friend_message, notice: 'Friend message was successfully created.'
+        end
+        format.json do
+          FriendMailer.fm_notification(@friend_message)
+          render :show, status: :created, location: @friend_message
+        end
       else
         format.html { render :new }
         format.json { render json: @friend_message.errors, status: :unprocessable_entity }
