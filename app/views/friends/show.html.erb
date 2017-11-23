@@ -37,6 +37,6 @@
 <% if @friend == current_user %>
   <%= link_to "Add gift to wishlist", new_wish_path %>
 <% else %>
-  <%= link_to "#{@friend.name}'s wishlist", friend_wishes_path(@friend) %>
+  <%= link_to "#{@friend.name}'s wishlist", wishes_friend_path(@friend) %>
   <%= link_to "Give this person a gift", new_friend_gift_path(@friend) %>
 <% end %>

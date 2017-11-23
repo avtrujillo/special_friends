@@ -10,7 +10,7 @@ class WishesController < ApplicationController
     @wish = Wish.new(wish_params)
     if @wish.save!
       flash[:success] = 'Wish created successfully'
-      redirect_to friend_wishes_path(current_user)
+      redirect_to wishes_friend_path(current_user)
     else
       flash[:failure] = 'Something went wrong and the wish was not created successfully'
       redirect_to 'new'
@@ -54,7 +54,7 @@ class WishesController < ApplicationController
 
   def friend_unfulfilled
     if params[:friend_id].to_i == current_user.id
-      redirect_to all_friend_wishes_path(current_user)
+      redirect_to all_wishes_friend_path(current_user)
     end
     @friend = Friend.find_by(id: params[:friend_id])
     @wishes = Wish.where(friend_id: params[:friend_id], year: Time.christmas_year)
@@ -81,7 +81,7 @@ class WishesController < ApplicationController
     else
       flash[:danger] = "You may only delete wishes that are yours"
     end
-    redirect_to friend_wishes_path(current_user) # to do: customize this by the incoming url
+    redirect_to wishes_friend_path(current_user) # to do: customize this by the incoming url
   end
 
   def friend_wishes_ajax

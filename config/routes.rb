@@ -47,8 +47,8 @@ Rails.application.routes.draw do
       get 'generation',         to: "friends#generation"
       get 'giving_gifts',       to: 'friends#giving'
       get 'receiving_gifts',    to: 'friends#receiving'
-      get 'wishes/unfulfilled', to:  'wishes#unfulfilled_friend', as: 'friend_wishes'
-      get 'wishes/all',         to: 'wishes#all_friend', as: 'all_friend_wishes'
+      get 'wishes/unfulfilled', to:  'wishes#unfulfilled_friend', as: 'wishes'
+      get 'wishes/all',         to: 'wishes#all_friend', as: 'all_wishes'
     end
     resources :gifts,   only: [:index, :new]
     # '/friends/gifts/index' will list the gifts that a friend is receiving
