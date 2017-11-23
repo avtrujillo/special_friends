@@ -21,6 +21,7 @@
 .byebug_history
 
 /config/secrets.yml
+/config/local_env.yml
 
 /emails.rb
 /todo.txt

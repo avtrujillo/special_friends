@@ -13,6 +13,7 @@
     <% if current_user %>
       <header class = "navbar navbar-fixed-top navbar-inverse">
         <div class="container">
+          <%= link_to 'Special Friends', '#', id: 'logo' %>
           <nav>
             <ul class="nav navbar-nav navbar-right">
               <li><%= link_to "Messages (#{FriendMessage.where(recipient_id: current_user.id, read?: false).count} unread)", friend_messages_path %></li>
