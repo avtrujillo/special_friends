@@ -13,7 +13,7 @@ class FriendsController < ApplicationController
   def index
     @friends = Friend.all
     @generations = Generation.all
-    @gifts = Gift.where(year: Time.christmas_year).reject do |gift|
+    @gifts = Gift.where(year: Time.christmas_year).to_a.reject do |gift|
       gift.recipient_id == current_user.id
     end
   end
@@ -22,7 +22,7 @@ class FriendsController < ApplicationController
     @friend = current_user.recipient
     @friends = Friend.all
     @wishes = Wish.where(year: Time.christmas_year, friend_id: @friend.id).to_a
-    @gifts = Gift.where(year: Time.christmas_year).reject do |gift|
+    @gifts = Gift.where(year: Time.christmas_year).to_a.reject do |gift|
       gift.recipient_id != current_user.id
       @wishes.any? { |wish| wish.id == gift.wish_id }
     end
@@ -52,7 +52,7 @@ class FriendsController < ApplicationController
   def giving
     if params[:id]
       @giver = Friend.find_by(id: params[:id])
-      @gifts = Gift.where(year: Time.christmas_year, giver_id: params[:id]).reject do |gift|
+      @gifts = Gift.where(year: Time.christmas_year, giver_id: params[:id]).to_a.reject do |gift|
         gift.recipient_id == current_user.id
       end
       render 'gifts/index'

@@ -17,10 +17,10 @@ class GiftsController < ApplicationController
     elsif params[:friend_id]
       @friend = Friend.find_by(id: params[:friend_id])
       @wish = Wish.find_by(id: params[:wish_id])
-      @receiving_gifts = Gift.where(recipient: @friend, year: Time.christmas_year).reject do |f|
+      @receiving_gifts = Gift.where(recipient: @friend, year: Time.christmas_year).to_a.reject do |f|
         f.recipient_id == current_user.id
       end
-      @giving_gifts = Gift.where(giver: @friend, year: Time.christmas_year).reject do |f|
+      @giving_gifts = Gift.where(giver: @friend, year: Time.christmas_year).to_a.reject do |f|
         f.recipient_id == current_user.id
       end
       render 'friend_gifts' and return # to do: make this
