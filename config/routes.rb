@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  defaults format: :html do
+    resources :friends, :friend_messages, :generations, :gifts, :wishes
+  end
+
   root 'sessions#new'
 
   get 'error/:error_id', to: 'htmlerrors#error_status_page'
@@ -31,7 +35,6 @@ Rails.application.routes.draw do
 
   resources :gifts
 
-  get 'wishes/unfulfilled',  to: 'wishes#unfulfilled', as: 'wishes'
   get 'wishes/all',    to: 'wishes#all', as: 'all_wishes'
 
   resources :wishes do
