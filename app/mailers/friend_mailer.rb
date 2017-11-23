@@ -16,6 +16,17 @@ class FriendMailer < ApplicationMailer
     mg_client.send_message ENV['MAILGUN_DOMAIN'], message_params
   end
 
+  def test_email_jesse
+    mg_client = Mailgun::Client.new ENV['PRIVATE_MAILGUN_API']
+    message_params = {
+      from: "messenger_bot@#{ENV['MAILGUN_DOMAIN']}",
+      to: Friend.find_by(name: 'Jesse').email,
+      subject: "mailer test",
+      text: "Test was a success"
+    }
+    mg_client.send_message ENV['MAILGUN_DOMAIN'], message_params
+  end
+
   private
 
   def notification_params(fm)
