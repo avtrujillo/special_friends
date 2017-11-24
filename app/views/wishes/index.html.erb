@@ -2,6 +2,12 @@
 
 <h1><%= "#{@friend.name}'s " if @friend %><%= 'Unfulfilled ' if @index_type == :unfulfilled%>Wishes</h1>
 
+<% if @index_type == :unfulfilled && @friend %>
+  <%= link_to "All of #{@friend.name}'s wishes, including those that have been fulfilled", all_wishes_friend_path(@friend) %>
+<% elsif @index_type == :unfulfilled %>
+  <%= link_to 'All wishes, including those that have been fulfilled', all_wishes_path %>
+<% end %>
+
 <TABLE BORDER="5">
   <tr>
     <th>Title</th>
