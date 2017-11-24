@@ -10,7 +10,7 @@ class WishesController < ApplicationController
     @wish = Wish.new(wish_params)
     if @wish.save!
       flash[:success] = 'Wish created successfully'
-      redirect_to wishes_friend_path(current_user)
+      redirect_to all_wishes_friend_path(current_user)
     else
       flash[:failure] = 'Something went wrong and the wish was not created successfully'
       redirect_to 'new'
