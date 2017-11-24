@@ -17,11 +17,13 @@
   </thead>
   <tbody>
     <% @wishes.each do |wish| %>
-      <td><%= link_to wish.title, wish %></td>
-      <td colspan="5"><%= wish.description %></td>
-      <% unless @friend == current_user %>
-        <th colspan="5"><%= wish.gifts.to_a.map(&:title) %></th>
-      <% end %>
+      <tr>
+        <td><%= link_to wish.title, wish %></td>
+        <td colspan="5"><%= wish.description %></td>
+        <% unless @friend == current_user %>
+          <th colspan="5"><%= wish.gifts.to_a.map(&:title) %></th>
+        <% end %>
+      </tr>
     <% end %>
   </tbody>
 </table>
