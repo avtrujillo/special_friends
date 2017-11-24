@@ -35,9 +35,7 @@ Rails.application.routes.draw do
 
   get 'wishes/all',    to: 'wishes#all', as: 'all_wishes'
 
-  resources :wishes, except: [:index], format: :html do
-    resources :gifts, only: [:index, :new], format: :html
-  end
+
 
   # the index method for the wishes controller shows only unfulfilled wishes
   # the all method shows all wishes
@@ -49,11 +47,15 @@ Rails.application.routes.draw do
       get 'giving_gifts',       to: 'friends#giving'
       get 'receiving_gifts',    to: 'friends#receiving'
       get 'wishes/unfulfilled', to: 'wishes#friend_unfulfilled'
-      get 'wishes/all',         to: 'wishes#all_friend', as: 'all_wishes'
+      get 'wishes/all',         to: 'wishes#friend_all', as: 'all_wishes'
       get 'wishes',             to: 'wishes#friend_unfulfilled', as: 'wishes'
     end
     resources :gifts,   only: [:index, :new], format: :html
     # '/friends/gifts/index' will list the gifts that a friend is receiving
+  end
+
+  resources :wishes, except: [:index], format: :html do
+    resources :gifts, only: [:index, :new], format: :html
   end
 
 

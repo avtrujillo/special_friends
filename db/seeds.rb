@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-millenials = Generation.create(name: "Millenials")
-genx_boomers = Generation.create(name: "GenX/Boomers")
+millenials = Generation.create!(name: "Millenials")
+genx_boomers = Generation.create!(name: "GenX/Boomers")
 
 olivia = Friend.create(name: "Olivia", generation_id: millenials.id)
 alex = Friend.create(name: "Alex", generation_id: millenials.id)
