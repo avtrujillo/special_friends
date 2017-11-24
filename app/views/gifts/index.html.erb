@@ -1,24 +1,6 @@
 <% controller.redirect_to '/error/403' if @recipient == current_user %>
 
-<% index_title = if @giver && @recipient %>
-  <% "Gifts from #{@giver.name} to #{@recipient.name}" %>
-<% elsif @giver == current_user && @recipient %>
-  <% "gifts that you are giving to #{@recipient.name}" %>
-<% elsif @giver == current_user %>
-  <% 'Gifts that you are giving' %>
-<% elsif @wish %>
-  <% "Gifts fulfilling #{@wish.friend.name}'s wish for #{@wish.title}" %>
-<% elsif @giver %>
-  <% "Gifts that #{@giver.name} is giving" %>
-<% elsif @recipient %>
-  <% "Gifts that #{@recipient.name} is receiving" %>
-<% else %>
-  <% "All gifts" %>
-<% end %>
-
-<% provide(:title: index_title) %>
-
-<h1>index_title</h1>
+<h1>Gifts</h1>
 <%# to do: improve this %>
 <%= render partial: 'gifts/gifts_summary', locals: {gifts: @gifts, wish: @wish,
   recipient: @recipient, giver: @giver
