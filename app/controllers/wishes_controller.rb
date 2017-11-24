@@ -54,7 +54,7 @@ class WishesController < ApplicationController
 
   def friend_unfulfilled
     if params[:id].to_i == current_user.id
-      redirect_to all_wishes_friend_path(current_user)
+      render status: 403, file: "#{Rails.root}/public/403.html" and return
     end
     @friend = Friend.find_by(id: params[:id])
     @wishes = Wish.where(friend_id: params[:id], year: Time.christmas_year).to_a
