@@ -1,6 +1,6 @@
 <% provide title: (@friend ? "#{@friend.name}'s Wishes" : "Wishes") %>
 
-<h1><%= "#{@friend.name}'s " if @friend %><%= 'Unfulfilled ' if @index_type = :unfulfilled%>Wishes</h1>
+<h1><%= "#{@friend.name}'s " if @friend %><%= 'Unfulfilled ' if @index_type == :unfulfilled%>Wishes</h1>
 
 <TABLE BORDER="5">
   <tr>
