@@ -3,7 +3,7 @@ class FriendMailer < ApplicationMailer
     mg_client = Mailgun::Client.new ENV['PRIVATE_MAILGUN_API']
     message_params = notification_params(fm)
     mail_result = mg_client.send_message ENV['MAILGUN_DOMAIN'], message_params
-    fm.sent? = true
+    fm.sent = true
   end
 
   def test_email
