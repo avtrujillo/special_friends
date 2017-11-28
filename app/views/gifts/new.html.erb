@@ -12,7 +12,7 @@
 
       <% if @recipient %>
         <%= f.hidden_field :recipient_id, value: @recipient.id %>
-        <%= f.collection_select(:wish_id, Friend.find(params[@recipient.id]).wishes, :id,
+        <%= f.collection_select(:wish_id, Friend.find(@recipient.id).wishes, :id,
         :title, include_blank: true, id: 'gift_wish_select') %>
       <% else %>
         <%= render partial: "gift_selectors.html.erb", locals: {f: f, params: params}, object: @wish%>
