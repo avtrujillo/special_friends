@@ -12,6 +12,7 @@
 
       <% if @recipient %>
         <%= f.hidden_field :recipient_id, value: @recipient.id %>
+        <%= f.label :wish_id, "What wish, if any, is this wish fulfilling?" %>
         <%= f.collection_select(:wish_id, Friend.find(@recipient.id).wishes, :id,
         :title, include_blank: true, id: 'gift_wish_select') %>
       <% else %>

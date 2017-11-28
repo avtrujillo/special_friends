@@ -12,7 +12,6 @@ class Gift < ApplicationRecord
   end
 
   def valid_purchase_status
-    purchase_status.downcase!
     unless ["purchased", "intend", 'sent'].include?(purchase_status)
       errors.add(:purchase_status, "can only be be 'purchased', 'intend', or 'sent'")
     end
