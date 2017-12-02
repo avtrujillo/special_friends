@@ -58,7 +58,7 @@ class GiftsController < ApplicationController
   end
 
   def edit
-    @gift = Gift.find(params[:gift_id])
+    @gift = Gift.find(params[:id])
     unless @gift.giver == current_user
       flash[:danger] = 'You can only edit gifts that you are giving'
       redirect_to(@gift)
@@ -67,7 +67,7 @@ class GiftsController < ApplicationController
   end
 
   def update
-    @gift = Gift.find_by(id: params[:gift][:id])
+    @gift = Gift.find_by(id: params[:id])
     if @gift.update(gift_params)
       flash[:success] = "Gift updated"
       redirect_to(@gift)
