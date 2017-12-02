@@ -13,11 +13,12 @@
 
       <%= f.label :recipient_id, 'Who is this gift for?' %>
       <%= f.collection_select(:recipient_id, Friend.all, :id, :name,
-        include_blank: false, id: 'gift_recipient_select', selected: @gift.recipient) %>
+        include_blank: false, id: 'gift_recipient_select', selected: @gift.recipient.id) %>
 
       <%= f.label :wish_id, "What wish, if any, is this gift fulfilling?" %>
       <%= f.collection_select(:wish_id, @gift.recipient.wishes, :id,
-        :title, include_blank: true, id: 'gift_wish_select', selected: @gift.wish) %>
+        :title, include_blank: true, id: 'gift_wish_select',
+        selected: (@gift.wish ? @gift.wish.id : nil)) %>
 
       <h4>Have you purcased and/or sent this gift yet?</h4>
       <%= f.label :purchase_status_intend, "I have not yet purchased this item, but I intend to" %>
