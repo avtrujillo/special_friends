@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20171124024843) do
     t.integer "mailgun_message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "sent?"
+    t.boolean "sent"
     t.boolean "read"
   end
 
