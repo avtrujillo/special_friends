@@ -54,12 +54,18 @@ class Friend < ApplicationRecord
     Gift.where(recipient: self, giver: other_friend)
   end
 
-
-
   def forbidden_match?(other_friend)
     return true if other_friend == self
     ForbiddenMatch.where(
       friend_1: [self, other_friend], friend_2: [self, other_friend]
     ).exists?
   end
+
+  def self.without_wishes
+    naughty_list = Friend.all.to_a.reject do |f|
+      Wish.where(year: Time.christmas_year, friend_id: f.id).any?
+    end
+    naughty_list
+  end
+
 end

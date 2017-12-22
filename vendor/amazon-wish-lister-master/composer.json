@@ -1,0 +1,12 @@
+{
+    "name": "doitlikejustin/amazon-wish-lister",
+    "description": "Retrieve Amazon Wishlist and output to JSON, XML, or PHP Array Object http://www.justinscarpetti.com/portfolio/amazon-wish-lister/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Justin Scarpetti",
+            "homepage": "http://www.justinscarpetti.com/"
+        }
+    ],
+    "require": {}
+}
