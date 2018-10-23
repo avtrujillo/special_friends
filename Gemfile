@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.4.4'
 
 gem 'rails', '~> 5.1.2'
 # translates from Less CSS to Sass for the Bootstrap framework
@@ -16,6 +16,7 @@ gem 'rufus-scheduler', '3.4.2'
 gem 'mailgun-ruby',    '1.1.8'
 gem 'responders',      '2.4.0'
 gem 'coffee-script-source', '1.8.0'
+gem 'amazon_wish_miner'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
