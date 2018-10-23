@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171124024843) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "forbidden_matches", force: :cascade do |t|
     t.integer "friend_1_id"
     t.integer "friend_2_id"
