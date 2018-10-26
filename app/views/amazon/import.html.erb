@@ -1,0 +1,12 @@
+<% provide title: 'Import Amazon Wishlist' %>
+
+<p>This page will help you import a <strong>new</strong> Amazon wishlist. If you
+  have already imported your Amazon list and would like to update it, please go
+  <%= link_to 'here', controller: 'amazon', action: 'sync' %> instead.
+</p>
+
+<%= form_tag controller: 'amazon', action: 'import',  method: 'post' do %>
+  <%= label_tag(:wishlist_url, 'Please enter the url for your Amazon wishlist') %>
+  <%= text_field_tag(:wishlist_url) %>
+  <%= submit_tag('Import') %>
+<% end %>
