@@ -58,6 +58,12 @@ Rails.application.routes.draw do
     resources :gifts, only: [:index, :new], format: :html
   end
 
+  get   'amazon/import',        to: 'amazon#import'
+  post  'amazon/import',        to: 'amazon#create_list'
+  get   'amazon/sync',          to: 'amazon#sync'
+  patch 'amazon/sync',          to: 'amazon#update_list'
+  get   'amazon/show_list/:id', to: 'amazon#show_list'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
