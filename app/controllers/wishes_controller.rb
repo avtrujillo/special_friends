@@ -81,7 +81,7 @@ class WishesController < ApplicationController
     else
       flash[:danger] = "You may only delete wishes that are yours"
     end
-    redirect_to wishes_friend_path(current_user) # to do: customize this by the incoming url
+    redirect_to wishes_friend_path(current_user) # TODO: customize this by the incoming url
   end
 
   def friend_wishes_ajax
