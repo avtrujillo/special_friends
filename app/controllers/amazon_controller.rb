@@ -8,7 +8,7 @@ class AmazonController < ApplicationController
     fal = FriendAmazonList.create!(external_id: list.id, friend_id: current_user.id)
     @duplicates = []
     @wishes = list.wishes.each_with_object(Array.new) do |wish, arr|
-      faw = FriendAmazonWish.create!(external_id: wish.id, friend_id: current_user.id,
+      faw = FriendAmazonWish.create!(external_id: wish.asin, friend_id: current_user.id,
       friend_amazon_list_id: fal.id, )
       arr << Wish.create!(friend_amazon_wish_id: faw.id,
         friend_id: current_user.id, title: wish.title, description: wish.url)
