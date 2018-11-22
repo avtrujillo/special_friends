@@ -14,6 +14,9 @@ class Friend < ApplicationRecord
 
   belongs_to  :generation
 
+  has_many  :amazon_wishes
+  has_many  :amazon_lists
+
   has_secure_password
 
   def Friend.digest(string)

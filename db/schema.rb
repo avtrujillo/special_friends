@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124024843) do
+ActiveRecord::Schema.define(version: 20181025233959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,23 @@ ActiveRecord::Schema.define(version: 20171124024843) do
   create_table "forbidden_matches", force: :cascade do |t|
     t.integer "friend_1_id"
     t.integer "friend_2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "friend_amazon_lists", force: :cascade do |t|
+    t.string "external_id", null: false
+    t.integer "friend_id", null: false
+    t.integer "year", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "friend_amazon_wishes", force: :cascade do |t|
+    t.string "external_id", null: false
+    t.integer "friend_id", null: false
+    t.integer "year", null: false
+    t.integer "friend_amazon_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,6 +94,7 @@ ActiveRecord::Schema.define(version: 20171124024843) do
     t.integer "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "friend_amazon_wish_id"
   end
 
 end

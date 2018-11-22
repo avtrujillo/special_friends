@@ -1,0 +1,13 @@
+<% provide title: 'Import Amazon Wishlist' %>
+
+<p>This page will help you import an Amazon wishlist. If you have already
+  imported this list, it will import only the items that were not included
+  before. This process may not be perfectly accurate, so try to double check
+  that it worked properly.
+</p>
+
+<%= form_tag controller: 'amazon', action: 'import',  method: 'post' do %>
+  <%= label_tag(:wishlist_url, 'Please enter the url for your Amazon wishlist') %>
+  <%= text_field_tag(:wishlist_url) %>
+  <%= submit_tag('Import') %>
+<% end %>

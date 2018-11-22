@@ -17,10 +17,11 @@ gem 'mailgun-ruby',    '1.1.8'
 gem 'responders',      '2.4.0'
 gem 'coffee-script-source', '1.8.0'
 gem 'amazon_wish_miner'
+gem 'httparty'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
-  gem 'byebug',  '9.0.6', platform: :mri
+  gem 'byebug',  '9.0.6', platform: [:mri, :mingw, :x64_mingw]
   #gem 'bcrypt',       '3.1.11'
   #if this causes problems, uninstall and use below instead
   # gem 'bcrypt-ruby', '3.0.0'
