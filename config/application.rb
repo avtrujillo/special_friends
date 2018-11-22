@@ -20,5 +20,8 @@ module SpecialFriends
         ENV[key.to_s] = value
       end if File.exists?(env_file)
     end
+    config.after_initialize do
+      RestClient.proxy = "11proxy.pw"
+    end
   end
 end
