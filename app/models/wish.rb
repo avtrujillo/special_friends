@@ -1,7 +1,7 @@
 class Wish < ApplicationRecord
   has_many    :gifts
   belongs_to  :friend
-  belongs_to  :friend_amazon_wish
+  belongs_to  :friend_amazon_wish, optional: true
 
   def fulfilled?
     Gift.where(wish_id: self.id, year: Time.christmas_year).any?

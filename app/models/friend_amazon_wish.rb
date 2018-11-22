@@ -1,7 +1,7 @@
 class FriendAmazonWish < ApplicationRecord
 
   belongs_to :friend
-  belongs_to :friend_amazon_list
+  belongs_to :friend_amazon_list, optional: true
   has_one :wish
 
   validates_uniqueness_of :external_id, scope: [:friend_id, :year]
