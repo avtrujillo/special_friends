@@ -12,4 +12,12 @@ class FriendAmazonWish < ApplicationRecord
     self.year = Time.christmas_year
   end
 
+  def title
+    self.wish.title if self.wish
+  end
+
+  def description
+    self.wish.description if self.wish
+  end
+
 end
