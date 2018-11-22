@@ -1,0 +1,35 @@
+<% provide title: 'Imported Amazon Wishes' %>
+<% @wish_successes ||= Array.new %>
+<% @wish_failures ||= Array.new %>
+
+<h1>Results from importing Amazon wish with id <%= @fal.id %></h1>
+
+<h2>The following wishes were successfully imported:</h2>
+
+<TABLE BORDER="5">
+  <tr>
+    <th>Title</th>
+    <th colspan="3">Description</th>
+  </tr>
+  <% @wish_successes.each do |wish_succ| %>
+    <tr>
+      <td><%= wish_succ.title %></td>
+      <td colspan='3'><%= wish_succ.description %></td>
+    </tr>
+  <% end %>
+</TABLE>
+
+<h2>The following wishes were not imported, probably because they were duplicates:</h2>
+
+<TABLE BORDER="5">
+  <tr>
+    <th>Title</th>
+    <th colspan="3">Description</th>
+  </tr>
+  <% @wish_failures.each do |wish_fail| %>
+    <tr>
+      <td><%= wish_fail.title %></td>
+      <td colspan='3'><%= wish_fail.description %></td>
+    </tr>
+  <% end %>
+</TABLE>
