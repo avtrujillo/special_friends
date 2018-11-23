@@ -22,6 +22,7 @@
               <li><%= (link_to "My Recipient (#{current_user.recipient.name})", recipient_path) if current_user.recipient %></li>
               <li><%= link_to "Me (#{current_user.name})", user_path %></li>
               <li><%= link_to "My Wish List", all_wishes_friend_path(current_user) %></li>
+              <li><%= link_to "Make A Wish", '/wishes/new' %></li>
               <li><%= link_to "Gift's I'm Giving", giving_gifts_friend_path(current_user) %></li>
               <li><%= link_to "Logout", logout_path, method: :delete %></li>
               <li><%= link_to "Help", '/help' %></li>
