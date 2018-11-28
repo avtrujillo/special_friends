@@ -75,13 +75,13 @@ class WishesController < ApplicationController
     if @wish && @wish.friend == current_user
       if @wish.destroy!
        flash[:success] = "Wish deleted"
+       redirect_to "/friends/#{@current_user.id}/wishes/all" # TODO: customize this by the incoming url
       else
         flash[:danger] = "Wish not deleted, something went wrong"
       end
     else
       flash[:danger] = "You may only delete wishes that are yours"
     end
-    redirect_to wishes_friend_path(current_user) # TODO: customize this by the incoming url
   end
 
   def friend_wishes_ajax

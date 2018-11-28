@@ -11,7 +11,7 @@
 <h3>Fulfilled with:</h3>
 <% if current_user == @wish.friend %>
   <p>You'll just have to wait until Christmas to find out!</p><br>
-  <%= link_to 'Edit', edit_wish_path(@wish)%>
+  <%= link_to 'Edit/Delete', edit_wish_path(@wish)%>
 <% elsif @wish.gifts.any? %>
   <ul>
     <% @wish.gifts.each do |gift| %>
