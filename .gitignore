@@ -28,4 +28,4 @@
 /feedback.txt
 /support_ticket_url.txt
 /db/seeds.rb
-Gemfile.lock
+.idea*
