@@ -17,4 +17,12 @@ module SessionsHelper
     @current_user = nil
   end
 
+  def omniauth_strategies
+    OmniAuth.strategies - [OmniAuth::Strategies::OAuth2]
+  end
+
+  def strategy_basename(strat)
+    strat.to_s[22..-1]
+  end
+
 end

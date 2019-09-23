@@ -19,5 +19,10 @@
       <%= f.submit "Log in", class: "btn btn-primary" %>
 
     <% end %>
+
+    <% omniauth_strategies.each do |strat| %>
+      <% strat_name = strategy_basename(strat) %>
+      <%= link_to "Log in with #{strat_name}", "/auth/#{strat_name}"%>
+    <% end %>
   </div>
 </div>
