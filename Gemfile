@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.4.4'
+ruby '2.5.1'
+#ruby=ruby-2.5.1
+# Above comment makes rvm stop complaining
 
 gem 'rails', '~> 5.1.2'
 # translates from Less CSS to Sass for the Bootstrap framework
