@@ -20,6 +20,7 @@ gem 'responders',      '2.4.0'
 gem 'coffee-script-source', '1.8.0'
 gem 'amazon_wish_miner'
 gem 'httparty'
+gem 'omniauth-facebook', '5.0.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

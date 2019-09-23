@@ -14,8 +14,10 @@ development:
   encoding: unicode
   pool: 5
   timeout: 5000
-  database: SpecialFriends
-  username: SpecialFriends
+  host: localhost
+  database: specialfriends
+  username: specialfriends
+  password: <%= ENV['SPECIAL_FRIENDS_DB_PW'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
