@@ -7,7 +7,7 @@ gem 'rails', '~> 5.1.2'
 # translates from Less CSS to Sass for the Bootstrap framework
 gem 'bootstrap-sass',  '3.3.6'
 gem 'puma',            '3.9.1'
-gem 'sass-rails',      '5.0.6'
+gem 'sassc-rails'
 gem 'uglifier',        '3.2.0'
 gem 'coffee-rails',    '4.2.2'
 gem 'jquery-rails',    '4.3.1'
