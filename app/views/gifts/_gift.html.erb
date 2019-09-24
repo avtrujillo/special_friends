@@ -19,7 +19,7 @@
     </li>
     <li>Description: <%= description %></li>
     <% if fulfillment_of %>
-      <li>Fulfillment of: <%= fulfillment_of, gift.wish  %></li> /* to do: makes sure this works */
+      <li>Fulfillment of: <%= fulfillment_of %></li> /* to do: makes sure this works */
     <% end %>
     <li>Shipped: <%= !!gift.shipped %></li>
     <li>Received: <%= @gift.received %>
@@ -27,6 +27,6 @@
         <%= link_to "Give an update about whether this gift has arrived",
         edit_gift_path(gift.id) %>
       <% end %>
-    <% end %>
+    </li>
   <% end %>
 </ul>
