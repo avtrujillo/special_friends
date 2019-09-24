@@ -34,11 +34,7 @@ class SessionsController < ApplicationController
     user = Friend.find_by(uid_sym => auth_hash[:uid])
     if user
       log_in user
-      if params[:origin]
-        redirect_to params[:origin]
-      else
-        redirect_to friend_path(user.id)
-      end
+      render '/friends/index'
     else
       flash.now[:danger] = 'Invalid username or password'
       render 'new'
