@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, only: [:new, :create, :destroy, :omniauth]
+  skip_before_action :require_login, only: [:new, :create, :destroy, :omniauth, :facebook]
 
   def new
     if current_user
@@ -28,15 +28,19 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-  def omniauth
-    auth_hash = request.env['omniauth.auth']
-    uid_sym = (auth_hash[:provider].to_s + '_uid').to_sym
-    user = Friend.find_by(uid_sym => auth_hash[:uid])
-    if user
-      log_in user
+  def facebook
+    friend_id = current_user.id if current_user
+    fb = Facebook.from_auth_hash(['omniauth.auth'], friend_id)
+    if fb && current_user
+      flash.now[:success] = 'Linked with Facebook'
+      render '/friends/index'
+    elsif fb
+      log_in fb.friend
       render '/friends/index'
     else
-      flash.now[:danger] = 'Invalid username or password'
+      # Facebook.from_auth_hash returns false if this facebook profile is already associated
+      # with another user
+      flash['danger'] = 'Invalid Facebook login'
       render 'new'
     end
   end

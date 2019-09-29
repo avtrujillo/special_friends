@@ -1,18 +1,20 @@
 class Facebook < ApplicationRecord
   belongs_to  :friend
 
-  def from_auth_hash(auth_hash)
+  def self.from_auth_hash(auth_hash, friend_id = nil)
+    # friend_id is only necessary when connecting a fb account for the first time
     # auth_hash documentation at:
     # https://github.com/mkdynamic/omniauth-facebook
     auth_hash ||= request.env['omniauth.auth']
+    fb = Facebook.find(auth_hash.uid) || Facebook.new(link: auth_hash[:extra][:raw_info][:link],
+                      email: auth_hash[:info][:email], friend_id: friend_id, id: auth_hash.uid)
     token, token_exp = token_exchange(auth_hash[:credentials][:token])
-    fb = Facebook.new(link: auth_hash[:extra][:raw_info][:link], token: token,
-                      token_expiration: token_exp, email: auth_hash[:info][:email])
-    fb.id = auth_hash.uid
-    fb.save
+    return false unless fb.friend_id == friend_id
+    fb.update(token: token, token_expiration: token_exp)
+    fb
   end
 
-  def token_exchange(short_term_token)
+  def self.token_exchange(short_term_token)
     # https://developers.facebook.com/docs/facebook-login/access-tokens/portability
     response = HTTParty.get(
         'https://graph.facebook.com/{graph-api-version}/oauth/access_token',
@@ -26,7 +28,7 @@ class Facebook < ApplicationRecord
     [response['access_token'], expires_at]
   end
 
-  def appsecret_proof(token)
+  def self.appsecret_proof(token)
     # The app secret proof is a sha256 hash of your access token, using the app secret as the key
     # https://developers.facebook.com/docs/graph-api/securing-requests
     # remember to add this to the query string of all facebook api calls as appsecret_proof
@@ -34,7 +36,5 @@ class Facebook < ApplicationRecord
     key = ENV['FACEBOOK_SECRET']
     OpenSSL::HMAC.hexdigest(digest, key, token)
   end
-
-  def long_term_token_expiration()
 
 end
