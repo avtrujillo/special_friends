@@ -5,7 +5,9 @@ class Facebook < ApplicationRecord
     # auth_hash documentation at:
     # https://github.com/mkdynamic/omniauth-facebook
     auth_hash ||= request.env['omniauth.auth']
-    fb = Facebook.new(link: auth_hash[:extra][:raw_info][:link])
+    token, token_exp = token_exchange(auth_hash[:credentials][:token])
+    fb = Facebook.new(link: auth_hash[:extra][:raw_info][:link], token: token,
+                      token_expiration: token_exp, email: auth_hash[:info][:email])
     fb.id = auth_hash.uid
     fb.save
   end
@@ -21,7 +23,7 @@ class Facebook < ApplicationRecord
         appsecret_proof: appsecret_proof(short_term_token)
     ).body
     expires_at = response['expires_in'] + Time.now
-    {long_term_token: response['access_token'], expires_at: expires_at}
+    [response['access_token'], expires_at]
   end
 
   def appsecret_proof(token)
@@ -32,5 +34,7 @@ class Facebook < ApplicationRecord
     key = ENV['FACEBOOK_SECRET']
     OpenSSL::HMAC.hexdigest(digest, key, token)
   end
+
+  def long_term_token_expiration()
 
 end
