@@ -5,8 +5,11 @@ class CreateFacebooks < ActiveRecord::Migration[5.1]
       t.datetime  :token_expiration
       t.string    :link
       t.string    :email
+      t.integer   :friend_id
       t.timestamps
     end
+
+    add_foreign_key :facebooks, :friends
 
   end
 end

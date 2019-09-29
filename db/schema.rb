@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181025233959) do
+ActiveRecord::Schema.define(version: 20190924213641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "facebooks", force: :cascade do |t|
+    t.string "token"
+    t.datetime "token_expiration"
+    t.string "link"
+    t.string "email"
+    t.integer "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "forbidden_matches", force: :cascade do |t|
     t.integer "friend_1_id"
@@ -97,4 +107,5 @@ ActiveRecord::Schema.define(version: 20181025233959) do
     t.integer "friend_amazon_wish_id"
   end
 
+  add_foreign_key "facebooks", "friends"
 end
