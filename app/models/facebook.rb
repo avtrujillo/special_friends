@@ -6,8 +6,8 @@ class Facebook < ApplicationRecord
     # auth_hash documentation at:
     # https://github.com/mkdynamic/omniauth-facebook
     auth_hash ||= request.env['omniauth.auth']
-    fb = Facebook.find(auth_hash.uid) || Facebook.new(link: auth_hash[:extra][:raw_info][:link],
-                      email: auth_hash[:info][:email], friend_id: friend_id, id: auth_hash.uid)
+    fb = Facebook.find(auth_hash[:uid]) || Facebook.new(link: auth_hash[:extra][:raw_info][:link],
+                      email: auth_hash[:info][:email], friend_id: friend_id, id: auth_hash[:uid])
     token, token_exp = token_exchange(auth_hash[:credentials][:token])
     return false unless fb.friend_id == friend_id
     fb.update(token: token, token_expiration: token_exp)
