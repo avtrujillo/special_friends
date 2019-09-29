@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'wishes', to: 'wishes#unfulfilled', as: 'wishes', format: :html
 
   root 'sessions#new'
-  get 'auth/:provider/callback', to: 'sessions#omniauth'
+  get 'auth/facebook/callback', to: 'sessions#facebook'
 
   get 'error/:error_id', to: 'htmlerrors#error_status_page'
 
