@@ -5,6 +5,7 @@ class Facebook < ApplicationRecord
     # friend_id is only necessary when connecting a fb account for the first time
     # auth_hash documentation at:
     # https://github.com/mkdynamic/omniauth-facebook
+    raise TypeError if friend_id && !friend_id.is_a?(Integer)
     auth_hash ||= request.env['omniauth.auth']
     fb = Facebook.find(auth_hash[:uid].to_i) || Facebook.new(link: auth_hash[:extra][:raw_info][:link],
                       email: auth_hash[:info][:email], friend_id: friend_id, id: auth_hash[:uid].to_i)
