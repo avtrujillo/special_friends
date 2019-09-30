@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
   def facebook
     friend_id = current_user.id if current_user
-    fb = Facebook.from_auth_hash(['omniauth.auth'], friend_id)
+    fb = Facebook.from_auth_hash(request.env['omniauth.auth'], friend_id)
     if fb && current_user
       flash.now[:success] = 'Linked with Facebook'
       render '/friends/index'
