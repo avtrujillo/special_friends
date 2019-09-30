@@ -29,3 +29,4 @@
 /support_ticket_url.txt
 /db/seeds.rb
 .idea*
+.env

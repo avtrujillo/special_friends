@@ -24,6 +24,7 @@ gem 'omniauth-facebook', '5.0.0'
 gem 'koala',            '3.0.0'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: [:mri, :mingw, :x64_mingw]
   #gem 'bcrypt',       '3.1.11'

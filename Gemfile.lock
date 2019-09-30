@@ -66,6 +66,10 @@ GEM
     crass (1.0.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     et-orbi (1.2.2)
       tzinfo
@@ -264,6 +268,7 @@ DEPENDENCIES
   byebug (= 9.0.6)
   coffee-rails (= 4.2.2)
   coffee-script-source (= 1.8.0)
+  dotenv-rails
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
   httparty
