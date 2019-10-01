@@ -41,7 +41,8 @@ class SessionsController < ApplicationController
       # Facebook.from_auth_hash returns false if this facebook profile is already associated
       # with another user
       flash['danger'] = 'Invalid Facebook login'
-      render 'new'
+      redirect_to 'new'
+      # TODO: (low priority) for some reason this results in a corrupted content error
     end
   end
 
