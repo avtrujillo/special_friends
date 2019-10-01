@@ -10,7 +10,7 @@ class Facebook < ApplicationRecord
     fb = Facebook.find_by(id: auth_hash[:uid].to_i) || Facebook.new(link: auth_hash[:extra][:raw_info][:link],
                       email: auth_hash[:info][:email], friend_id: friend_id, id: auth_hash[:uid].to_i)
     token, token_exp = token_exchange(auth_hash[:credentials][:token])
-    return false unless fb.friend_id == friend_id
+    return false if (friend_id && fb.friend_id != friend_id)
     fb.update(token: token, token_expiration: token_exp)
     fb
   end
