@@ -33,10 +33,10 @@ class SessionsController < ApplicationController
     fb = Facebook.from_auth_hash(request.env['omniauth.auth'], friend_id)
     if fb && current_user
       flash.now[:success] = 'Linked with Facebook'
-      render '/friends/index'
+      redirect_to '/friends'
     elsif fb
       log_in fb.friend
-      render '/friends/index'
+      redirect_to '/friends'
     else
       # Facebook.from_auth_hash returns false if this facebook profile is already associated
       # with another user
