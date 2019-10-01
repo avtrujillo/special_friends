@@ -32,17 +32,20 @@ class SessionsController < ApplicationController
     friend_id = current_user.id if current_user
     fb = Facebook.from_auth_hash(request.env['omniauth.auth'], friend_id)
     if fb && current_user
-      flash.now[:success] = 'Linked with Facebook'
-      redirect_to '/friends'
-    elsif fb
+      fb.update(friend_id: current_user.id)
+      redirect_to friends_path, notice: 'Linked with Facebook'
+    elsif fb && fb.friend
       log_in fb.friend
-      redirect_to '/friends'
-    else
+      redirect_to friends_path
+    elsif fb && fb.friend.nil? && current_user.nil?
+      redirect_to '/login', alert: 'The facebook profile you are logged into is not associated with a user of this site.' +
+          'Please log to this site using your username and password first, or contact the admin'
+    elsif current_user && !fb
       # Facebook.from_auth_hash returns false if this facebook profile is already associated
       # with another user
-      flash['danger'] = 'Invalid Facebook login'
-      redirect_to 'new'
-      # TODO: (low priority) for some reason this results in a corrupted content error
+      redirect_to friends_path, alert:'Error: The facebook account you attempted to log in with is already associated with different user'
+    else
+      raise
     end
   end
 
