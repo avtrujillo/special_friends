@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   post  'amazon/import',        to: 'amazon#create_list'
   get   'amazon/show_list/:id', to: 'amazon#show_list'
 
+  get 'privacy_policy',         to: 'static_pages#privacy_policy'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
