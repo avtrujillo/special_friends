@@ -1,5 +1,7 @@
 <% controller.redirect_to '/error/403' if @recipient == current_user %>
-
+<br>
+<%= link_to "Enter a new gift", new_gift_path %>
+<br>
 <h1>Gifts</h1>
 <%# to do: improve this %>
 <%= render partial: 'gifts/gifts_summary', locals: {gifts: @gifts, wish: @wish,
