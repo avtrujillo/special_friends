@@ -2,8 +2,8 @@ class FriendMatch < ApplicationRecord
   belongs_to :giver, foreign_key: "giver_id", class_name: "Friend"
   belongs_to :recipient, foreign_key: "recipient_id", class_name: "Friend"
   has_many :messages, foreign_key: 'friend_match_id', class_name: 'FriendMessage'
-  validates_uniqueness_of :giver_id
-  validates_uniqueness_of :recipient_id
+  #validates_uniqueness_of :giver_id
+  #validates_uniqueness_of :recipient_id
   validates_associated  :giver
   validates_associated  :recipient
 
@@ -51,8 +51,8 @@ class FriendMatch < ApplicationRecord
 
   def self.transfer_friend_match(friend_id)
     giver_id = FriendMatch.find_by(recipient_id: friend_id).giver_id
-    recipient_id = Friend.find_by(giver_id: friend_id).recipient_id
-    FriendMatch.create(giver_id: giver_id, recipient_id: recipient_id)
+    recipient_id = FriendMatch.find_by(giver_id: friend_id).recipient_id
+    FriendMatch.create!(giver_id: giver_id, recipient_id: recipient_id, year: Time.christmas_year)
   end
 
 end
