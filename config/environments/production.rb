@@ -85,6 +85,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.force_ssl = true
+  config.serve_static_assets = true
 
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {

@@ -5,6 +5,13 @@ class StaticPagesController < ApplicationController
   def home
   end
 
+  def db_backup
+    send_file("#{Rails.root}/db/production.sqlite3", {
+      filename: 'production.sqlite3',
+      disposition: 'attachment'
+    })
+  end
+
   def help
   end
 

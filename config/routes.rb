@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/db_backup', to: 'static_pages#db_backup'
+
   get 'wishes', to: 'wishes#unfulfilled', as: 'wishes', format: :html
 
   root 'sessions#new'
