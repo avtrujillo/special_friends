@@ -10,14 +10,8 @@ default: &default
   timeout: 5000
 
 development:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  timeout: 5000
-  host: localhost
-  database: specialfriends
-  username: specialfriends
-  password: <%= ENV['SPECIAL_FRIENDS_DB_PW'] %>
+  <<: *default
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

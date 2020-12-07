@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20190924213641) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "facebooks", force: :cascade do |t|
     t.string "token"
     t.datetime "token_expiration"
@@ -107,5 +104,4 @@ ActiveRecord::Schema.define(version: 20190924213641) do
     t.integer "friend_amazon_wish_id"
   end
 
-  add_foreign_key "facebooks", "friends"
 end
