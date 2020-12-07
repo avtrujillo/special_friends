@@ -11,6 +11,20 @@ class FriendMatch < ApplicationRecord
     giver.generation
   end
 
+  def self.generate_generation_matches(gen_id)
+    generate_valid_matches_hash.tap do |mh|
+      mh.each_pair do |recipient, giver|
+        if giver.generation.id == gen_id
+            FriendMatch.create!(
+            giver_id: giver.id,
+            recipient_id: recipient.id,
+            year: Time.christmas_year
+          )
+        end
+      end
+    end
+  end
+
   def gifts
     Gift.where giver: self.giver, recipient: self.recipient, year: self.year
   end
