@@ -15,8 +15,8 @@ ssl_bind(
     ENV.fetch('RAILS_IP') {'0.0.0.0'},
     ENV.fetch("RAILS_PORT") { 443 },
     {
-        key: ENV.fetch('KEY_PATH') {'./localhost.key'},
-        cert: ENV.fetch('CERT_PATH') {'./localhost.crt'},
+        key: ENV['KEY_PATH'],
+        cert: ENV['CERT_PATH'],
     }
 )
 
