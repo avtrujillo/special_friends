@@ -6,7 +6,7 @@ ruby '~>2.5.0'
 gem 'rails', '~> 5.1.2'
 # translates from Less CSS to Sass for the Bootstrap framework
 gem 'bootstrap-sass',  '3.4.1'
-gem 'puma',            '3.9.1'
+gem 'puma',            git: 'https://github.com/eric-norcross/puma.git'
 gem 'sassc-rails'
 gem 'uglifier',        '3.2.0'
 gem 'coffee-rails',    '4.2.2'
@@ -47,4 +47,3 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
